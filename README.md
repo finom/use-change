@@ -63,5 +63,57 @@ const MyComponent = (): ReactElement => {
 ```
 
 
+## API
 
+Explicit store
+
+`useChange(object: any, key: string): [value, setter]`
+
+```js
+const store = { key: value };
+// ...
+const [value, setValue] = useChange(store, 'key')
+```
+
+Implicit store
+
+`useChange(getObject, key: string): [value, setter]`
+
+```js
+interface RootStore {
+  foo: { 
+    bar: { 
+      key: string;
+    } 
+  }
+}
+const store: RootStore = { foo: { bar: { key: 'value' } } };
+// ...
+const [value, setValue] = useChange((store: RootStore) => store.foo.bar, 'key')
+```
+
+
+Implicit root store
+
+
+`useChange(key: string): [value, setter]`
+
+```js
+const store = { key: 'value' };
+// ...
+const [value, setValue] = useChange<RootStore>('key')
+```
+
+
+## Secondary API 
+
+`useValue()`
+
+`useSetter()`
+
+`useSilently()`
+
+`listenChange()`
+
+`unlistenChange()`
 
