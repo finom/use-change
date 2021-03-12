@@ -29,22 +29,27 @@ class StoreBranchB {
   bCount = 0;
 }
 
-class RootStore {
+export class RootStore {
   rootCount = 0;
   storeBranchA = new StoreBranchA();
   storeBranchB = new StoreBranchB();
 }
+
+export default new RootStore();
 ```
 
 ```js
 import React, { ReactElement } from 'react'
 import useChange from 'use-change';
+import store, { RootStore } from './store';
 
-const store = { count: 0 };
+setInterval(() => {
+  store.storeBranchA.countA++;
+}, 1000);
 
 const MyComponent = (): ReactElement => {
-  const [countA, setCountA] = useChange(({ storeBranchA }) => storeBranchA, 'countA');
-  const [countB, setCountB] = useChange(({ storeBranchB }) => storeBranchB, 'countB');
+  const [countA, setCountA] = useChange(({ storeBranchA }: RootStore) => storeBranchA, 'countA');
+  const [countB, setCountB] = useChange(({ storeBranchB }: RootStore) => storeBranchB, 'countB');
   
   return (
     <>
