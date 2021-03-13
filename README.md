@@ -2,6 +2,47 @@
 
 > The TypeScript-first react store library you were looking for
 
+
+The concept of this library is that you define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to peoperty changes.
+
+**Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow infinite times. Let's 
+
+```js
+interface RootStore {
+  readonly me: {
+    isAuthenticated: boolean; 
+    name: 'Joe Doeson';
+  }
+  
+  readonly shop: {
+    readonly cart: {
+      items: ShoppingCartItem[];
+    }
+    
+    deliveryAddress: string;
+  }
+}
+```
+
+`RootStore['me']`, `RootStore['shop']['cart']`, `RootStore['shop']['cart']` should not be changed since they're "branches" (the store skeleton) but `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']` can, since they're "leaves" that can be listened by components. 
+
+```js
+const [cartItems, setCartItems] = useChange(
+  ({ shop }: RootStore) => shop.cart, // select "branch"
+  'items', // 
+);
+
+// ...
+
+setCartItems([
+  ...cartItems,
+  newItem,
+])
+```
+
+
+
+
 ```js
 import React, { ReactElement } from 'react'
 import useChange from 'use-change';
