@@ -299,6 +299,37 @@ const [value, setValue] = useChange<RootStore>('key')
 
 ### Persistent store
 
+```js
+import { Layout } from 'react-grid-layout';
+import { listenChange } from '../hooks/useChange';
+
+function persistentValue<T>(key: keyof PersistentStore, defaultValue: T) {
+  const storageValue = localStorage.getItem(key);
+  return storageValue ? JSON.parse(storageValue) as T : defaultValue;
+}
+
+export class PersistentStore {
+  public layout = persistentValue<Layout[]>('layout', []);
+
+  public binanceApiKey = persistentValue<string | null>('binanceApiKey', null);
+
+  public binanceApiSecret = persistentValue<string | null>('binanceApiSecret', null);
+
+  constructor() {
+    Object.getOwnPropertyNames(this).forEach((key) => {
+      listenChange(this, key, (value) => {
+        localStorage.setItem(key, JSON.stringify(value));
+      });
+    });
+  }
+}
+
+export default new PersistentStore();
+
+```
+
+### Persistent store
+
 ## Known issues
 
 1. Implicit root store requires key generic.
