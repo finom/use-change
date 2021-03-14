@@ -1,6 +1,6 @@
 # use-change
 
-> The one React hook to store data
+> The one React hook for app-wide data
 
 The idea of this library is that you define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at properties of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not ever need.
 
