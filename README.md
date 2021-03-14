@@ -295,3 +295,12 @@ const [value, setValue] = useChange<RootStore>('key')
 
 `unlistenChange()`
 
+## Examples
+
+### Persistent store
+
+## Known issues
+
+1. Implicit root store requires key generic.
+2. Overload errors.
+
