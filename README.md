@@ -163,7 +163,7 @@ const MyComponent = (): ReactElement => {
 
 As you can see here we import `RootStore` class itself to be used just as a type, but we don't import store itself there thanks to `Provider`. But you can import it though to see how cool it is:
 
-```
+```js
 // ...
 import store, { RootStore } from './store';
 
@@ -238,24 +238,36 @@ store.shop.cart.items = [
 
 
 
-
-
-
 ## API
 
-Explicit store
+### `useChange`
 
-`useChange(object: any, key: string): [value, setter]`
+**Explicit store overload.** At this case you provide store object directly. Use cases: 
+
+1. You don't want to use `Provider`.
+2. You have existing application and you want to add some extra logic without affecting entire application.
+
+In other cases it's recommended to use overload with store selector.
+
+`useChange<T, K>(object: T, key: K & keyof T & string) => [value: inferred, setter: (value: inferred) => inferred]`
 
 ```js
-const store = { key: value };
+interface RootStore {
+  foo: { 
+    bar: { 
+      key: string;
+    } 
+  }
+}
+
+const store: RootStore = { foo: { bar: { key: 'value' } } };
 // ...
-const [value, setValue] = useChange(store, 'key')
+const [value, setValue] = useChange(store.foo.bar, 'key'); // value is inferred as string
 ```
 
-Implicit store
+**Implicit store overload** with store selector. 
 
-`useChange(getObject, key: string): [value, setter]`
+`useChange<T, K, S>(getStore: (store: T) => S, key: K & keyof T & string): [value: inferred, setter: (value: inferred) => inferred]`
 
 ```js
 interface RootStore {
@@ -267,14 +279,14 @@ interface RootStore {
 }
 const store: RootStore = { foo: { bar: { key: 'value' } } };
 // ...
-const [value, setValue] = useChange((store: RootStore) => store.foo.bar, 'key')
+const [value, setValue] = useChange((store: RootStore) => store.foo.bar, 'key'); // value is inferred as string
 ```
 
 
-Implicit root store
+**Implicit root store overload.** This overload doesn't require to provide neither store object nor store selector. Key provided as the only argument 
 
 
-`useChange(key: string): [value, setter]`
+`useChange<T, K>(key: K & keyof T & string): [value: inferred, setter: (value: inferred) => inferred]`
 
 ```js
 const store = { key: 'value' };
@@ -282,12 +294,51 @@ const store = { key: 'value' };
 const [value, setValue] = useChange<RootStore>('key')
 ```
 
+There are noteworthy restrictions of this overload described below.
+
 
 ## Secondary API 
 
-`useValue()`
+The library also provides a few helpful hooks and functions that cover additional needs using `useChange` hook.
 
-`useSetter()`
+
+### `useValue`
+
+Supports 100% the same overload as `useChange` does and works the same but instead of a `[value, setter]` touple it returns just a `value` (zero-indexed element of the touple). 
+
+```ts
+const value = useValue((store: RootStore) => store.foo.bar, 'key');
+
+// 100% equivalent of 
+const [value] = useChange((store: RootStore) => store.foo.bar, 'key');
+
+// or 
+const value = useChange((store: RootStore) => store.foo.bar, 'key')[0];
+```
+
+It's (as well as `useSetter`) created for syntax sugar purposes.
+
+```ts
+doSomething(useValue(...));
+```
+
+
+
+### `useSetter`
+
+Supports 100% the same overload as `useChange` does and works the same but instead of a `[value, setter]` touple it returns just a `value` (element of index 1 of the touple). 
+
+```ts
+const setBarKey = useValue((store: RootStore) => store.foo.bar, 'key');
+
+// 100% equivalent of 
+const [, setBarKey] = useChange((store: RootStore) => store.foo.bar, 'key');
+
+// or 
+const setBarKey = useChange((store: RootStore) => store.foo.bar, 'key')[1];
+```
+
+
 
 `useSilently()`
 
