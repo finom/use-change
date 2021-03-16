@@ -267,7 +267,7 @@ const [value, setValue] = useChange(store.foo.bar, 'key'); // value is inferred 
 
 **Implicit store overload** with store selector. 
 
-`useChange<T, K, S>(getStore: (store: T) => S, key: K & keyof T & string): [value: inferred, setter: (value: inferred) => inferred]`
+`useChange<T, K, S>(getStore: (store: T) => S, key: K & keyof S & string): [value: inferred, setter: (value: inferred) => inferred]`
 
 ```js
 interface RootStore {
@@ -339,12 +339,78 @@ const setBarKey = useChange((store: RootStore) => store.foo.bar, 'key')[1];
 ```
 
 
+### `useSilently`
 
-`useSilently()`
+Supports 100% the same overload as `useChange` does but returns `value` and doesn't trigger component re-render. This is the silent broser of `useValue`.
 
-`listenChange()`
+```ts
+const value = useSilently((store: RootStore) => store.foo.bar, 'key');
+```
 
-`unlistenChange()`
+It's used for cases if you want to get something unchengeable. A good example is store methods which don't need to have modified their property descriptor.
+
+```js
+// ./store.ts
+class StoreBranch {
+  public count = 0;
+  
+  public readonly incrementCount = () => {
+    this.count++;
+  }
+}
+
+export class RootStore {
+  public readonly storeBranch = new StoreBranch();
+}
+
+export default new RootStore();
+```
+
+```ts
+const incrementCount = useSilently((store: RootStore) => store.storeBranch, 'incrementCount');
+// ...
+incrementCount();
+```
+
+
+
+### `listenChange`
+
+Allows to listen to object property changes outside of components. The object should be given explicidly since `Provider` doesn't work here anymore. The method returns a funciton that unsubscribes from given event.
+
+`listenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred) => void): void`
+
+```ts
+const store = { count: 0; };
+
+const unlisten = listenChange(store, 'count', (count) => console.log('the count is: ', count));
+
+setTinterval(() => {
+  store.count++;
+});
+```
+
+
+
+### `unlistenChange`
+
+Allows to remove of previously attatched listener.
+
+`unlistenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred) => void): void`
+
+```ts
+const store = { count: 0; };
+
+const handler = (count) => console.log('the count is: ', count);
+
+listenChange(store, 'count', handler);
+
+// ... 
+
+unlistenChange(store, 'count', handler);
+```
+
+
 
 ## Examples
 
