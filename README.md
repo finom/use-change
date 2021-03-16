@@ -324,24 +324,21 @@ doSomething(useValue(...));
 
 
 
-### `useSetter`
+### `useSet`
 
-Supports 100% the same overload as `useChange` does and works the same but instead of a `[value, setter]` touple it returns just a `value` (element of index 1 of the touple). 
+Supports 100% the same overload as `useChange` does but instead of a `[value, setter]` touple it returns just a `setter` (element of index 1 of the touple) ans also doesn't trigger component re-render. 
 
 ```ts
-const setBarKey = useValue((store: RootStore) => store.foo.bar, 'key');
+const setBarKey = useSet((store: RootStore) => store.foo.bar, 'key');
 
-// 100% equivalent of 
-const [, setBarKey] = useChange((store: RootStore) => store.foo.bar, 'key');
-
-// or 
+// almost the same as the following,  but doesn't trigger component re-render
 const setBarKey = useChange((store: RootStore) => store.foo.bar, 'key')[1];
 ```
 
 
 ### `useSilently`
 
-Supports 100% the same overload as `useChange` does but returns `value` and doesn't trigger component re-render. This is the silent broser of `useValue`.
+Supports 100% the same overload as `useChange` does but returns `value` and doesn't trigger component re-render. This is the silent brother of `useValue`.
 
 ```ts
 const value = useSilently((store: RootStore) => store.foo.bar, 'key');
