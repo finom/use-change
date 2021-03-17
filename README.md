@@ -265,7 +265,7 @@ const store: RootStore = { foo: { bar: { key: 'value' } } };
 const [value, setValue] = useChange(store.foo.bar, 'key'); // value is inferred as string
 ```
 
-**Implicit store overload** with store selector. 
+**Implicit store overload with store selector**. 
 
 `useChange<T, K, S>(getStore: (store: T) => S, key: K & keyof S & string): [value: inferred, setter: (value: inferred) => inferred]`
 
@@ -446,6 +446,54 @@ export default new PersistentStore();
 
 ## Known issues
 
-1. Implicit root store requires key generic.
-2. Overload errors.
+### Issue 1
+
+Implicit root store overload makes TypeScript unable to detect exact type of a property if 2nd generic parameter isn't given.
+
+```ts
+interface RootStore {
+  isSomething: boolean;
+  count: number;
+}
+
+// ... 
+
+// value type is inferred as "boolean | number" instead of "boolean"
+const [value] = useChange<RootStore>('isSomething');
+```
+![image](https://user-images.githubusercontent.com/1082083/111462099-b0d22080-8726-11eb-9a1d-344f3d0bb974.png)
+
+
+There are two workarounds to fix it. The first is to provide key literal as the second generic parameter:
+
+```ts
+const [value] = useChange<RootStore, 'isSomething'>('isSomething');
+```
+
+![image](https://user-images.githubusercontent.com/1082083/111462058-9f891400-8726-11eb-9bb9-2e06b8657d4a.png)
+
+If it looks weird to you there is 2nd workaround using implicit store overload with store selector: 
+
+```ts
+const [value] = useChange((store: RootStore) => store, 'isSomething');
+```
+
+![image](https://user-images.githubusercontent.com/1082083/111462361-05759b80-8727-11eb-8418-c085e47ca01a.png)
+
+### Issue 2
+
+Typescript error is not informative if a provided key is not a key of store slice.
+
+![image](https://user-images.githubusercontent.com/1082083/111462970-be3bda80-8727-11eb-8de0-3f8705ff1121.png)
+
+But if a correct key is provided, the error will disappear. 
+
+![image](https://user-images.githubusercontent.com/1082083/111463052-d4e23180-8727-11eb-95b9-0e93cdd99e1b.png)
+
+
+
+![image](https://user-images.githubusercontent.com/1082083/111462970-be3bda80-8727-11eb-8de0-3f8705ff1121.png)
+
+
+
 
