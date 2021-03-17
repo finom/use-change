@@ -1,6 +1,6 @@
 # use-change
 
-> The one React hook for app-wide data
+> The one React TypeScript-first hook for app-wide data
 
 The idea of this library is that you define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at properties of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not ever need.
 
@@ -489,10 +489,6 @@ Typescript error is not informative if a provided key is not a key of store slic
 But if a correct key is provided, the error will disappear. 
 
 ![image](https://user-images.githubusercontent.com/1082083/111463052-d4e23180-8727-11eb-95b9-0e93cdd99e1b.png)
-
-
-
-![image](https://user-images.githubusercontent.com/1082083/111462970-be3bda80-8727-11eb-8de0-3f8705ff1121.png)
 
 
 
