@@ -470,7 +470,7 @@ There are two workarounds to fix it. The first is to provide key literal as the 
 const [value] = useChange<RootStore, 'isSomething'>('isSomething');
 ```
 
-![image](https://user-images.githubusercontent.com/1082083/111462058-9f891400-8726-11eb-9bb9-2e06b8657d4a.png)
+![image](https://user-images.githubusercontent.com/1082083/111463261-107cfb80-8728-11eb-944e-b12b6eb96587.png)
 
 If it looks weird to you there is 2nd workaround using implicit store overload with store selector: 
 
