@@ -5,7 +5,6 @@ import {
   Key, ReturnTuple, Selector, SliceRecord,
 } from './types';
 
-// see https://stackoverflow.com/questions/60377365/typescript-infer-type-of-generic-after-optional-first-generic
 function useChange<STORE, KEY = keyof STORE, SLICE = STORE>(
   key: Key<SLICE, KEY>,
 ): ReturnTuple<SLICE[typeof key]>;

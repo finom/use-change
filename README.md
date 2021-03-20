@@ -2,7 +2,7 @@
 
 > The one TypeScript-first React hook for app-wide data
 
-The idea of this library is that you define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at properties of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not ever need.
+The idea of this library is that you define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at properties of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not even need.
 
 Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed. 
 
@@ -12,8 +12,8 @@ Components that include `useChange` listen to only those properties that they ac
 ## Quick start
 
 1. Install by `npm i use-change` or `yarn add use-change`.
-2. Define an object of any shape. This is going to be your store.
-3. Add `useChange` to your component
+2. Define an object of any shape. It's going to be your store.
+3. Add `useChange` to your component.
 
 ```js
 import React, { ReactElement } from 'react'
@@ -49,8 +49,8 @@ The example shows how you can use the hook as a local data store for a component
 
 1. Install by `npm i use-change` or `yarn add use-change`.
 2. Define an object of any shape. This is going to be your store.
-3. Wrap your components by `Provider` exported by `use-change`
-4. Add `useChange` to your components
+3. Wrap your components by `Provider` exported by `use-change`.
+4. Add `useChange` to your components.
 
 ```js
 import React, { ReactElement } from 'react';
@@ -118,7 +118,7 @@ const App = (): ReactElement => (
 export default App;
 ```
 
-Let's make it more complex and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's add a few classess that also consist counts.
+Let's make it more complex and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's add a few classess that also consist just counts.
 
 ```js
 // ./store.ts
@@ -161,7 +161,7 @@ const MyComponent = (): ReactElement => {
 }
 ```
 
-As you can see here we import `RootStore` class itself to be used just as a type, but we don't import store itself there thanks to `Provider`. But you can import it though to see how cool it is:
+As you can see here we import `RootStore` class to be used just as a type, but we don't import store itself there thanks to `Provider`. But you can import it though just to check how cool it is:
 
 ```js
 // ...
@@ -176,7 +176,7 @@ const MyComponent = (): ReactElement => {
 ```
 
 
-The component is going to be updated every second sincne it listens the `store.storeBranchA.countA` peoperty.
+The component is going to be updated every second sincne it listens the `store.storeBranchA.countA` property.
 
 ## Summary
 
@@ -211,7 +211,7 @@ If the store is implemented by the interface, then:
 - `RootStore['me']`, `RootStore['shop']['cart']`, `RootStore['shop']['cart']` should not be changed since they're "branches" (the store skeleton) 
 - But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']` can, since they're "leaves" that can be listened by components.
 
-This means that any listenable property need to be overriden bu a new value, but never mutated.
+This means that any listenable property need to be overriden by a new value, but never mutated.
 
 ```js
 const [cartItems, setCartItems] = useChange(
@@ -316,35 +316,27 @@ const [value] = useChange((store: RootStore) => store.foo.bar, 'key');
 const value = useChange((store: RootStore) => store.foo.bar, 'key')[0];
 ```
 
-It's (as well as `useSetter`) created for syntax sugar purposes.
-
-```ts
-doSomething(useValue(...));
-```
-
-
-
 ### `useSet`
 
-Supports 100% the same overload as `useChange` does but instead of a `[value, setter]` touple it returns just a `setter` (element of index 1 of the touple) ans also doesn't trigger component re-render. 
+Supports 100% the same overload as `useChange` does but instead of a `[value, setter]` touple it returns just a `setter` (element of index 1 of the touple). The hook doesn't trigger component re-render when property value is changed.
 
 ```ts
 const setBarKey = useSet((store: RootStore) => store.foo.bar, 'key');
 
-// almost the same as the following,  but doesn't trigger component re-render
+// almost the same as the following, but doesn't trigger component re-render
 const setBarKey = useChange((store: RootStore) => store.foo.bar, 'key')[1];
 ```
 
 
-### `useSilently`
+### `useSilent`
 
-Supports 100% the same overload as `useChange` does but returns `value` and doesn't trigger component re-render. This is the silent brother of `useValue`.
+Supports 100% the same overload as `useChange` does but returns `value` and doesn't trigger component re-render when property value is changed. This is the "silent brother" of `useValue`.
 
 ```ts
-const value = useSilently((store: RootStore) => store.foo.bar, 'key');
+const value = useSilent((store: RootStore) => store.foo.bar, 'key');
 ```
 
-It's used for cases if you want to get something unchengeable. A good example is store methods which don't need to have modified their property descriptor.
+It's used for cases if you want to get something unchengeable. A good example is store methods: they don't need to get their property descriptor to be changed.
 
 ```js
 // ./store.ts
@@ -364,16 +356,14 @@ export default new RootStore();
 ```
 
 ```ts
-const incrementCount = useSilently((store: RootStore) => store.storeBranch, 'incrementCount');
+const incrementCount = useSilen((store: RootStore) => store.storeBranch, 'incrementCount');
 // ...
 incrementCount();
 ```
 
-
-
 ### `listenChange`
 
-Allows to listen to object property changes outside of components. The object should be given explicidly since `Provider` doesn't work here anymore. The method returns a funciton that unsubscribes from given event.
+Allows to listen to object property changes outside of components. The object should be given explicidly since `Provider` doesn't work here anymore. The method returns a funciton that unsubscribes from a given event.
 
 `listenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred) => void): void`
 
@@ -384,7 +374,7 @@ const unlisten = listenChange(store, 'count', (count) => console.log('the count 
 
 setTinterval(() => {
   store.count++;
-});
+}, 1000);
 ```
 
 
@@ -407,27 +397,28 @@ listenChange(store, 'count', handler);
 unlistenChange(store, 'count', handler);
 ```
 
+## Persistent store
 
-
-## Examples
-
-### Persistent store
+There is no built-in feature to store data persistently but the elegancy of use-change design makes possible to create such thing easily.
 
 ```js
-import { Layout } from 'react-grid-layout';
-import { listenChange } from '../hooks/useChange';
+// ./PersistentStore.ts
 
+import { listenChange } from 'use-change';
+
+// the function returns localStorage value or default value if localStorage value doesn't exist
 function persistentValue<T>(key: keyof PersistentStore, defaultValue: T) {
   const storageValue = localStorage.getItem(key);
   return storageValue ? JSON.parse(storageValue) as T : defaultValue;
 }
 
+// define the part of root store that responsible for persistent store
 export class PersistentStore {
-  public layout = persistentValue<Layout[]>('layout', []);
+  public age = persistentValue<number>('age', 18);
 
-  public binanceApiKey = persistentValue<string | null>('binanceApiKey', null);
+  public firstName = persistentValue<string>('firstName', 'John');
 
-  public binanceApiSecret = persistentValue<string | null>('binanceApiSecret', null);
+  public lastName = persistentValue<string>('lastName', 'Doe');
 
   constructor() {
     Object.getOwnPropertyNames(this).forEach((key) => {
@@ -442,9 +433,40 @@ export default new PersistentStore();
 
 ```
 
-### Persistent store
+Use the class as part of your root store
+
+```js
+// ./store.ts
+import { PersistentStore } from './PersistentStore';
+
+export class RootStore {
+  public readonly persistent = new PersistentStore();
+}
+
+export default new RootStore();
+```
+
+Then use the store slice as any other custom object.
+
+```js
+// the value will be written into localStorage
+store.persistent.age = 20;
+```
+
+```js
+// or with a use-change hook
+import useChange from 'use-change';
+
+// ...
+const [age, setAge] = useChange(({ persistent }: RootStore) => persistent, 'age');
+// ...
+// the value will be written into localStorage
+setAge(20);
+```
 
 ## Known issues
+
+If you know how to fix one of the following TypeScript problems, please make a PR or create an issue with an idea of how it could be fixed.
 
 ### Issue 1
 
