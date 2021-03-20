@@ -4,7 +4,8 @@
   "description": "The useChange hook",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine-ts --config=test/jasmine.json",
+    "test": "npm run unit && npm run lint && tsc --noemit",
+    "unit": "jasmine-ts --config=test/jasmine.json",
     "build": "tsc",
     "lint-pure": "eslint . --ext .ts,.tsx",
     "lint": "npm run lint-pure -- --fix"
