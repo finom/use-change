@@ -10,7 +10,8 @@
     "lint-pure": "eslint . --ext .ts,.tsx",
     "lint": "npm run lint-pure -- --fix",
     "prepublish": "npm t && npm run build",
-    "postpublish": "node post-publish-test/post-publish.js"
+    "postpublish": "node post-publish-test/post-publish.js",
+    "patch": "npm version patch && npm publish && git push && git push --tags"
   },
   "repository": {
     "type": "git",
