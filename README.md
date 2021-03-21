@@ -490,9 +490,9 @@ const [age, setAge] = useChange(({ persistent }: RootStore) => persistent, 'age'
 setAge(20);
 ```
 
-## Known issues
+## Known TypeScript issues
 
-If you know how to fix one of the following TypeScript problems, please make a PR or create an issue with an idea of how it could be fixed.
+If you know how to fix one of the following TypeScript problems, please make a PR or create an issue with your idea of how it could be fixed.
 
 ### Issue 1
 
