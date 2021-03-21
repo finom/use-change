@@ -1,5 +1,5 @@
 {
-  "name": "use-post-publish",
+  "name": "use-change-post-publish",
   "dependencies": {
     "use-change": "*",
     "react": "*"

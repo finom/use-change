@@ -17,11 +17,11 @@ const {
   default: useChange, useValue, useSet, useSilent, listenChange, unlistenChange, Context, Provider,
 } = require('use-change');
 
-for (const f of [useChange, useValue, useSet, useSilent, listenChange, unlistenChange, Context]) {
-  // expect(typeof f === 'function').to.be(true);
+for (const f of [useChange, useValue, useSet, useSilent, listenChange, unlistenChange]) {
+  expect(typeof f === 'function').to.be(true);
 }
 
-expect(Provider.Context).to.be(Context);
+expect(Context.Provider).to.be(Provider);
 
 // return main dependencies back
 execSync('npm i --prefix ..', { cwd: __dirname });
