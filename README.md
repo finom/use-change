@@ -24,11 +24,11 @@ Components that include `useChange` listen to only those properties that they ac
          * [listenChange](#listenchange)
          * [unlistenChange](#unlistenchange)
       * [Persistent store](#persistent-store)
-      * [Known issues](#known-issues)
+      * [Known TypeScript issues](#known-typescript-issues)
          * [Issue 1](#issue-1)
          * [Issue 2](#issue-2)
 
-<!-- Added by: finom, at: Sun Mar 21 16:08:20 EET 2021 -->
+<!-- Added by: finom, at: Sun Mar 21 16:17:26 EET 2021 -->
 
 <!--te-->
 
