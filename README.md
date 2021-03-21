@@ -1,4 +1,4 @@
-## use-change
+# use-change
 
 > The one TypeScript-first React hook for app-wide data
 
@@ -9,8 +9,7 @@ Components that include `useChange` listen to only those properties that they ac
 ## Table of Contents 
 
 <!--ts-->
-
-      * [use-change](#use-change)
+   * [use-change](#use-change)
       * [Table of Contents](#table-of-contents)
       * [Quick start](#quick-start)
       * [Quick start using Provider](#quick-start-using-provider)
@@ -29,7 +28,7 @@ Components that include `useChange` listen to only those properties that they ac
          * [Issue 1](#issue-1)
          * [Issue 2](#issue-2)
 
-<!-- Added by: finom, at: Sun Mar 21 16:06:39 EET 2021 -->
+<!-- Added by: finom, at: Sun Mar 21 16:08:20 EET 2021 -->
 
 <!--te-->
 
