@@ -7,6 +7,26 @@ The idea of this library is that you define a skeleton of your data store as a f
 Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed.
 
 <!--ts-->
+   * [use-change](#use-change)
+      * [Quick start](#quick-start)
+      * [Quick start using Provider](#quick-start-using-provider)
+      * [Designing store](#designing-store)
+      * [Summary](#summary)
+      * [API](#api)
+         * [useChange](#usechange)
+      * [Secondary API](#secondary-api)
+         * [useValue](#usevalue)
+         * [useSet](#useset)
+         * [useSilent](#usesilent)
+         * [listenChange](#listenchange)
+         * [unlistenChange](#unlistenchange)
+      * [Persistent store](#persistent-store)
+      * [Known issues](#known-issues)
+         * [Issue 1](#issue-1)
+         * [Issue 2](#issue-2)
+
+<!-- Added by: finom, at: Sun Mar 21 16:00:44 EET 2021 -->
+
 <!--te-->
 
 ![image](./assets/use-change.png)
