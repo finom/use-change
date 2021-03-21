@@ -4,9 +4,33 @@
 
 The idea of this library is that you define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at properties of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not even need.
 
-Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed. 
+Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed.
 
 ![image](./assets/use-change.png)
+
+
+<!--ts-->
+   * [use-change](#use-change)
+      * [Quick start](#quick-start)
+      * [Quick start using Provider](#quick-start-using-provider)
+      * [Designing store](#designing-store)
+      * [Summary](#summary)
+      * [API](#api)
+         * [useChange](#usechange)
+      * [Secondary API](#secondary-api)
+         * [useValue](#usevalue)
+         * [useSet](#useset)
+         * [useSilent](#usesilent)
+         * [listenChange](#listenchange)
+         * [unlistenChange](#unlistenchange)
+      * [Persistent store](#persistent-store)
+      * [Known issues](#known-issues)
+         * [Issue 1](#issue-1)
+         * [Issue 2](#issue-2)
+
+<!-- Added by: finom, at: Sun Mar 21 15:58:15 EET 2021 -->
+
+<!--te-->
 
 
 ## Quick start
