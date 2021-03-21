@@ -1,0 +1,11 @@
+{
+  "name": "use-post-publish",
+  "dependencies": {
+    "use-change": "*",
+    "react": "*"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "jsdom": "^16.2.2"
+  }
+}

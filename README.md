@@ -6,7 +6,7 @@ The idea of this library is that you define a skeleton of your data store as a f
 
 Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed. 
 
-![image](./use-change.png)
+![image](./assets/use-change.png)
 
 
 ## Quick start

@@ -11,14 +11,14 @@ describe('listen & unlisten', () => {
     });
 
     store.x = 2;
-    expect(triggerTimes).toBe(2);
+    expect(triggerTimes).toBe(1);
     store.x = 3;
-    expect(triggerTimes).toBe(3);
+    expect(triggerTimes).toBe(2);
     unlisten();
     store.x = 4;
-    expect(triggerTimes).toBe(3);
+    expect(triggerTimes).toBe(2);
     store.x = 5;
-    expect(triggerTimes).toBe(3);
+    expect(triggerTimes).toBe(2);
   });
 
   it('listenChange and unlistenChange', () => {
@@ -32,19 +32,19 @@ describe('listen & unlisten', () => {
 
     listenChange(store, 'x', handler);
     store.x = 2;
-    expect(triggerTimes).toBe(2);
+    expect(triggerTimes).toBe(1);
     store.x = 3;
-    expect(triggerTimes).toBe(3);
+    expect(triggerTimes).toBe(2);
     // pass different callback
     unlistenChange(store, 'x', () => {});
     store.x = 4;
-    expect(triggerTimes).toBe(4);
+    expect(triggerTimes).toBe(3);
     store.x = 5;
-    expect(triggerTimes).toBe(5);
+    expect(triggerTimes).toBe(4);
     unlistenChange(store, 'x', handler);
     store.x = 6;
-    expect(triggerTimes).toBe(5);
+    expect(triggerTimes).toBe(4);
     store.x = 7;
-    expect(triggerTimes).toBe(5);
+    expect(triggerTimes).toBe(4);
   });
 });
