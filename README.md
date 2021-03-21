@@ -28,7 +28,7 @@ Components that include `useChange` listen to only those properties that they ac
          * [Issue 1](#issue-1)
          * [Issue 2](#issue-2)
 
-<!-- Added by: finom, at: Sun Mar 21 16:17:26 EET 2021 -->
+<!-- Added by: finom, at: Sun Mar 21 16:30:21 EET 2021 -->
 
 <!--te-->
 
@@ -447,6 +447,8 @@ export class PersistentStore {
   public lastName = persistentValue<string>('lastName', 'Doe');
 
   constructor() {
+    // enumerate over own property names (age, firstName, lastName)
+    // and define property change listener to update localStorage
     Object.getOwnPropertyNames(this).forEach((key) => {
       listenChange(this, key, (value) => {
         localStorage.setItem(key, JSON.stringify(value));
