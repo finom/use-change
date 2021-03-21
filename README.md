@@ -260,10 +260,6 @@ store.shop.cart.items = [
 ```
 
 
-
-
-
-
 ## API
 
 ### `useChange`
@@ -421,6 +417,41 @@ listenChange(store, 'count', handler);
 // ... 
 
 unlistenChange(store, 'count', handler);
+```
+
+
+### `Context`
+
+React context used for the store provider. You can use `Context` with `useContext` to get store without importing it.
+
+```ts
+import React, { useContext } from 'react';
+import { Context } from 'use-change';
+
+const MyComponent = () => {
+  const store = useContext(Context);
+  // ...
+}
+```
+
+### `Provider`
+
+The context provider.
+
+```js
+import React, { ReactElement } from 'react';
+import { Provider as UseChangeProvider } from 'use-change';
+import MyComponent from './MyComponent';
+
+const store = { count: 0 };
+
+const App = (): ReactElement => (
+  <UseChangeProvider value={store}>
+    <MyComponent />
+  </UseChangeProvider>
+)
+
+export default App;
 ```
 
 ## Persistent store
