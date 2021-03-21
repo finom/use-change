@@ -9,6 +9,7 @@ Components that include `useChange` listen to only those properties that they ac
 ## Table of Contents 
 
 <!--ts-->
+
       * [use-change](#use-change)
       * [Table of Contents](#table-of-contents)
       * [Quick start](#quick-start)
