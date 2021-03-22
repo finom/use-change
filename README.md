@@ -1,5 +1,7 @@
 # use-change
 
+<a href="https://badge.fury.io/js/defi" rel="nofollow"><img alt="npm version" src="https://badge.fury.io/js/defi.svg" style="max-width:100%;"></a>
+
 > The one TypeScript-first React hook for app-wide data
 
 The idea of this library is that you define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at properties of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not even need.
@@ -23,12 +25,14 @@ Components that include `useChange` listen to only those properties that they ac
          * [useSilent](#usesilent)
          * [listenChange](#listenchange)
          * [unlistenChange](#unlistenchange)
+         * [Context](#context)
+         * [Provider](#provider)
       * [Persistent store](#persistent-store)
       * [Known TypeScript issues](#known-typescript-issues)
          * [Issue 1](#issue-1)
          * [Issue 2](#issue-2)
 
-<!-- Added by: finom, at: Sun Mar 21 16:30:21 EET 2021 -->
+<!-- Added by: finom, at: Mon Mar 22 14:22:36 EET 2021 -->
 
 <!--te-->
 
@@ -127,7 +131,7 @@ export class RootStore {
 export default new RootStore();
 ```
 
-Then just import the store and use it at `Provider` as usually.
+Then import the store and use it as `Provider` value.
 
 ```js
 import React, { ReactElement } from 'react';
@@ -234,8 +238,8 @@ interface RootStore {
 
 If the store is implemented by the interface, then:
 
-- `RootStore['me']`, `RootStore['shop']['cart']`, `RootStore['shop']['cart']` should not be changed since they're "branches" (the store skeleton) 
-- But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']` can, since they're "leaves" that can be listened by components.
+- `RootStore['me']`, `RootStore['shop']`, `RootStore['shop']['cart']` should not be changed since they're "tree branches" (the store skeleton).
+- But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']` can, since they're "tree leaves" that can be listened by components.
 
 This means that any listenable property need to be overriden by a new value, but never mutated.
 
@@ -257,6 +261,8 @@ store.shop.cart.items = [
   ...cartItems,
   newItem,
 ];
+
+// but never store.shop.cart.items.push(newItem)
 ```
 
 
@@ -422,7 +428,7 @@ unlistenChange(store, 'count', handler);
 
 ### `Context`
 
-React context used for the store provider. You can use `Context` with `useContext` to get store without importing it.
+React context used for the store provider. You can use `Context` with `React.useContext` to get store without importing it.
 
 ```ts
 import React, { useContext } from 'react';
