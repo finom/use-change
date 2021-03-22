@@ -1,6 +1,4 @@
-# use-change
-
-<a href="https://badge.fury.io/js/defi" rel="nofollow"><img alt="npm version" src="https://badge.fury.io/js/defi.svg" style="max-width:100%;"></a>
+# use-change [![npm version](https://badge.fury.io/js/use-change.svg)](https://badge.fury.io/js/use-change)
 
 > The one TypeScript-first React hook for app-wide data
 
