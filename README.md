@@ -220,7 +220,11 @@ Congrats! You basically passed the tutorial of how to use `use-change` hook! Let
 2. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in the root of store `useChange<T>(key: string)` 
 3. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in a nested object from the store `useChange<T>(storeSelector: (store: T) => object, key: string)` 
 
-**Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow infinite times. Let's take a look at a custom store interface.
+**Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow infinite times. 
+
+![](./assets/seasons-tree-with-roots-free-vector.jpeg)
+
+Let's take a look at a custom store interface.
 
 ```js
 interface RootStore {
@@ -245,9 +249,6 @@ If the store is implemented by the interface, then:
 - But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']` can, since they're "tree leaves" that can be listened by components.
 
 This means that any listenable property need to be overriden by a new value, but never mutated.
-
-![](./assets/seasons-tree-with-roots-free-vector.jpeg)
-
 
 ```js
 const [cartItems, setCartItems] = useChange(
