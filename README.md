@@ -245,6 +245,10 @@ If the store is implemented by the interface, then:
 
 This means that any listenable property need to be overriden by a new value, but never mutated.
 
+![](./assets/seasons-tree-with-roots-free-vector.jpeg)
+
+<a href="https://www.vecteezy.com/free-vector/nature">Nature Vectors by Vecteezy</a>
+
 ```js
 const [cartItems, setCartItems] = useChange(
   ({ shop }: RootStore) => shop.cart, // select a data tree "branch"
