@@ -64,7 +64,7 @@ const MyComponent = (): ReactElement => {
 export default MyComponent;
 ```
 
-`store.count` is updated using `setCount` function from the touple returned by `useChange`. It can also be updated just by direct modification of `count` property:
+`store.count` is updated using `setCount` function from the touple returned by `useChange` (just like using `React.useState`). It can also be updated just by direct modification of `count` property:
 
 ```js
 // ...
@@ -205,7 +205,7 @@ const MyComponent = (): ReactElement => {
 ```
 
 
-The component is going to be updated every second sincne it listens the `store.storeBranchA.countA` property.
+The component is going to be updated every second since it listens to the `store.storeBranchA.countA` property changes.
 
 ## Summary
 
@@ -250,6 +250,7 @@ const [cartItems, setCartItems] = useChange(
 
 // ...
 
+// create a new array to be used as shop.cart.items value
 setCartItems([
   ...cartItems,
   newItem,
@@ -261,7 +262,9 @@ store.shop.cart.items = [
   newItem,
 ];
 
-// but never store.shop.cart.items.push(newItem)
+// but never mutate the array
+// cartItems.push(newItem); // wrong
+// store.shop.cart.items.push(newItem); // also wrong
 ```
 
 
@@ -292,7 +295,20 @@ const store: RootStore = { foo: { bar: { key: 'value' } } };
 const [value, setValue] = useChange(store.foo.bar, 'key'); // value is inferred as string
 ```
 
-**Implicit store overload with store selector**. 
+
+**Implicit root store overload.** This overload doesn't require to provide neither store object nor store selector. Key provided as the only argument.
+
+`useChange<T, K>(key: K & keyof T & string): [value: inferred, setter: (value: inferred) => inferred]`
+
+```js
+const store = { key: 'value' };
+// ...
+const [value, setValue] = useChange<RootStore>('key')
+```
+
+There are noteworthy restrictions of this overload described below.
+
+**Implicit store overload with store selector.** The recommended way to use `useChange`.
 
 `useChange<T, K, S>(getStore: (store: T) => S, key: K & keyof S & string): [value: inferred, setter: (value: inferred) => inferred]`
 
@@ -309,24 +325,9 @@ const store: RootStore = { foo: { bar: { key: 'value' } } };
 const [value, setValue] = useChange((store: RootStore) => store.foo.bar, 'key'); // value is inferred as string
 ```
 
-
-**Implicit root store overload.** This overload doesn't require to provide neither store object nor store selector. Key provided as the only argument 
-
-
-`useChange<T, K>(key: K & keyof T & string): [value: inferred, setter: (value: inferred) => inferred]`
-
-```js
-const store = { key: 'value' };
-// ...
-const [value, setValue] = useChange<RootStore>('key')
-```
-
-There are noteworthy restrictions of this overload described below.
-
-
 ## Secondary API 
 
-The library also provides a few helpful hooks and functions that cover additional needs using `useChange` hook.
+The library also provides a few helpful hooks and functions that cover additional needs while using `useChange`.
 
 
 ### `useValue`
@@ -345,7 +346,7 @@ const value = useChange((store: RootStore) => store.foo.bar, 'key')[0];
 
 ### `useSet`
 
-Supports 100% the same overload as `useChange` does but instead of a `[value, setter]` touple it returns just a `setter` (element of index 1 of the touple). The hook doesn't trigger component re-render when property value is changed.
+Supports 100% the same overload as `useChange` does but instead of a `[value, setter]` touple it returns just a `setter` (element of index 1 of the touple). The hook **doesn't trigger component re-render** when property value is changed.
 
 ```ts
 const setBarKey = useSet((store: RootStore) => store.foo.bar, 'key');
@@ -357,13 +358,13 @@ const setBarKey = useChange((store: RootStore) => store.foo.bar, 'key')[1];
 
 ### `useSilent`
 
-Supports 100% the same overload as `useChange` does but returns `value` and doesn't trigger component re-render when property value is changed. This is the "silent brother" of `useValue`.
+Supports 100% the same overload as `useChange` does but returns `value` and **doesn't trigger component re-render** when property value is changed. This is the "silent twin" of `useValue`.
 
 ```ts
 const value = useSilent((store: RootStore) => store.foo.bar, 'key');
 ```
 
-It's used for cases if you want to get something unchengeable. A good example is store methods: they don't need to get their property descriptor to be changed.
+It's used for cases if you want to get something unchengeable. A good example is store methods: they don't need to get their property descriptor to be modified.
 
 ```js
 // ./store.ts
@@ -383,14 +384,14 @@ export default new RootStore();
 ```
 
 ```ts
-const incrementCount = useSilen((store: RootStore) => store.storeBranch, 'incrementCount');
+const incrementCount = useSilent((store: RootStore) => store.storeBranch, 'incrementCount');
 // ...
 incrementCount();
 ```
 
 ### `listenChange`
 
-Allows to listen to object property changes outside of components. The object should be given explicidly since `Provider` doesn't work here anymore. The method returns a funciton that unsubscribes from a given event.
+Allows to listen to object property changes outside of components. The store object argument should be given explicidly since `Provider` doesn't work here anymore. The method returns a funciton that unsubscribes from a given event.
 
 `listenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred) => void): void`
 
@@ -427,7 +428,7 @@ unlistenChange(store, 'count', handler);
 
 ### `Context`
 
-React context used for the store provider. You can use `Context` with `React.useContext` to get store without importing it.
+React context used for the store provider. You can use `Context` with `React.useContext` to receive store object without importing it.
 
 ```ts
 import React, { useContext } from 'react';
@@ -441,7 +442,7 @@ const MyComponent = () => {
 
 ### `Provider`
 
-The context provider.
+The context provider. It equals to `Context.Provider`.
 
 ```js
 import React, { ReactElement } from 'react';
@@ -465,7 +466,6 @@ There is no built-in feature to store data persistently but the elegancy of use-
 
 ```js
 // ./PersistentStore.ts
-
 import { listenChange } from 'use-change';
 
 // the function returns localStorage value or default value if localStorage value doesn't exist
@@ -497,7 +497,7 @@ export default new PersistentStore();
 
 ```
 
-Use the class as part of your root store
+Use the class instance as part of your root store.
 
 ```js
 // ./store.ts
@@ -510,7 +510,7 @@ export class RootStore {
 export default new RootStore();
 ```
 
-Then use the store slice as any other custom object.
+Then use it as any other custom object.
 
 ```js
 // the value will be written into localStorage
@@ -563,6 +563,8 @@ If it looks weird to you there is 2nd workaround using implicit store overload w
 ```ts
 const [value] = useChange((store: RootStore) => store, 'isSomething');
 ```
+
+That's why this is the most recommended way of `useChange` use.
 
 ![image](https://user-images.githubusercontent.com/1082083/111462361-05759b80-8727-11eb-8418-c085e47ca01a.png)
 
