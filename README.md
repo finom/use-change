@@ -593,4 +593,4 @@ But if a correct key is provided, the error will disappear.
 
 ## Credits
 
-Seasons Tree - <a href="https://www.vecteezy.com/free-vector/nature" target="_blank">Nature Vectors by Vecteezy</a>
+Seasons Tree Image - <a href="https://www.vecteezy.com/free-vector/nature" target="_blank">Nature Vectors by Vecteezy</a>
