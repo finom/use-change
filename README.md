@@ -8,29 +8,31 @@ The idea of this library is that you define a skeleton of your data store as a f
 
 Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed.
 
-## Table of Contents 
+## Table of Contents
+
 
 <!--ts-->
-      * [use-change](#use-change)
-      * [Table of Contents](#table-of-contents)
-      * [Quick start](#quick-start)
-      * [Quick start using Provider](#quick-start-using-provider)
-      * [Designing the store](#designing-the-store)
-      * [Summary](#summary)
-      * [API](#api)
-         * [useChange](#usechange)
-      * [Secondary API](#secondary-api)
-         * [useValue](#usevalue)
-         * [useSet](#useset)
-         * [useSilent](#usesilent)
-         * [listenChange](#listenchange)
-         * [unlistenChange](#unlistenchange)
-         * [Context](#context)
-         * [Provider](#provider)
-      * [Persistent store](#persistent-store)
-      * [Known TypeScript issues](#known-typescript-issues)
-         * [Issue 1](#issue-1)
-         * [Issue 2](#issue-2)
+
+- [use-change](#use-change)
+- [Table of Contents](#table-of-contents)
+- [Quick start](#quick-start)
+- [Quick start using Provider](#quick-start-using-provider)
+- [Designing the store](#designing-the-store)
+- [Summary](#summary)
+- [API](#api)
+  - [`useChange`](#usechange)
+- [Secondary API](#secondary-api)
+  - [`useValue`](#usevalue)
+  - [`useSet`](#useset)
+  - [`useSilent`](#usesilent)
+  - [`listenChange`](#listenchange)
+  - [`unlistenChange`](#unlistenchange)
+  - [`Context`](#context)
+  - [`Provider`](#provider)
+- [Persistent store](#persistent-store)
+- [Known TypeScript issues](#known-typescript-issues)
+  - [Issue 1](#issue-1)
+  - [Issue 2](#issue-2)
 
 <!-- Added by: finom, at: Wed Mar 24 14:20:20 EET 2021 -->
 
