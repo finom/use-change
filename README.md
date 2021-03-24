@@ -10,11 +10,11 @@ Components that include `useChange` listen to only those properties that they ac
 ## Table of Contents 
 
 <!--ts-->
-   * [use-change](#use-change)
+   * [use-change <a href="https://badge.fury.io/js/use-change" rel="nofollow"><img src="https://camo.githubusercontent.com/18484a5ae4d049b0bc01bc52275924bbfb6164fc2b6fd105a64fbde154c3646a/68747470733a2f2f62616467652e667572792e696f2f6a732f7573652d6368616e67652e737667" alt="npm version" data-canonical-src="https://badge.fury.io/js/use-change.svg" style="max-width:100%;"></a> <a href="http://www.typescriptlang.org/" rel="nofollow"><img src="https://camo.githubusercontent.com/f1137c321d7123e05be01bb0b48886113c8e274a2f3d32ae9852ce5bd6db8003/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2533432532462533452d547970655363726970742d2532333030373463312e737667" alt="TypeScript" data-canonical-src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg" style="max-width:100%;"></a>](#use-change--)
       * [Table of Contents](#table-of-contents)
       * [Quick start](#quick-start)
       * [Quick start using Provider](#quick-start-using-provider)
-      * [Designing store](#designing-store)
+      * [Designing the store](#designing-the-store)
       * [Summary](#summary)
       * [API](#api)
          * [useChange](#usechange)
@@ -31,7 +31,7 @@ Components that include `useChange` listen to only those properties that they ac
          * [Issue 1](#issue-1)
          * [Issue 2](#issue-2)
 
-<!-- Added by: finom, at: Mon Mar 22 14:22:36 EET 2021 -->
+<!-- Added by: finom, at: Wed Mar 24 08:29:49 EET 2021 -->
 
 <!--te-->
 
@@ -116,7 +116,7 @@ const MyComponent = (): ReactElement => {
 export default MyComponent;
 ```
 
-## Designing store
+## Designing the store
 
 You can use an object literal to define store for simple use, but real world data usually consists more than just a `count`. It's recommended to build your store as a class instance. Shape of the class is 100% custom and it doesn't require to use decorators or wrappers.
 
