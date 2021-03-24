@@ -33,6 +33,7 @@ Components that include `useChange` listen to only those properties that they ac
 - [Known TypeScript issues](#known-typescript-issues)
   - [Issue 1](#issue-1)
   - [Issue 2](#issue-2)
+- [Credits](#credits)
 
 <!-- Added by: finom, at: Wed Mar 24 14:20:20 EET 2021 -->
 
@@ -247,7 +248,6 @@ This means that any listenable property need to be overriden by a new value, but
 
 ![](./assets/seasons-tree-with-roots-free-vector.jpeg)
 
-<a href="https://www.vecteezy.com/free-vector/nature">Nature Vectors by Vecteezy</a>
 
 ```js
 const [cartItems, setCartItems] = useChange(
@@ -589,3 +589,8 @@ But if a correct key is provided, the error will disappear.
 
 
 
+
+
+## Credits
+
+<a href="https://www.vecteezy.com/free-vector/nature" target="_blank">Nature Vectors by Vecteezy</a>
