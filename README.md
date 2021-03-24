@@ -436,9 +436,10 @@ React context used for the store provider. You can use `Context` with `React.use
 ```ts
 import React, { useContext } from 'react';
 import { Context as UseChangeContext } from 'use-change';
+import { RootStore } from './store';
 
 const MyComponent = () => {
-  const store = useContext(UseChangeContext);
+  const store = useContext<RootStore>(UseChangeContext);
   // ...
 }
 ```
