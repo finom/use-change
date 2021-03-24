@@ -7,17 +7,17 @@ import {
 
 function useChange<STORE, KEY = keyof STORE, SLICE = STORE>(
   key: Key<SLICE, KEY>,
-): ReturnTuple<SLICE[typeof key]>;
+): ReturnTuple<SLICE, typeof key>;
 
 function useChange<STORE, KEY, SLICE = STORE>(
   storeSlice: SliceRecord<SLICE>,
   key: Key<SLICE, KEY>,
-): ReturnTuple<SLICE[typeof key]>;
+): ReturnTuple<SLICE, typeof key>;
 
 function useChange<STORE, KEY, SLICE = STORE>(
   storeSlice: Selector<STORE, SLICE>,
   key: Key<SLICE, KEY>,
-): ReturnTuple<SLICE[typeof key]>;
+): ReturnTuple<SLICE, typeof key>;
 
 function useChange<STORE, KEY, SLICE = STORE>(
   storeSlice: Selector<STORE, SLICE>
