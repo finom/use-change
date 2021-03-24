@@ -1,7 +1,6 @@
-# use-change 
+## use-change
 
-[![npm version](https://badge.fury.io/js/use-change.svg)](https://badge.fury.io/js/use-change) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
-
+[![npm version](https://badge.fury.io/js/use-change.svg)](https://badge.fury.io/js/use-change) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/) ![Build status](https://github.com/finom/use-change/actions/workflows/main.yml/badge.svg)
 
 > The one React hook for application state 🤖
 
@@ -12,7 +11,7 @@ Components that include `useChange` listen to only those properties that they ac
 ## Table of Contents 
 
 <!--ts-->
-   * [use-change](#use-change)
+      * [use-change](#use-change)
       * [Table of Contents](#table-of-contents)
       * [Quick start](#quick-start)
       * [Quick start using Provider](#quick-start-using-provider)
@@ -33,7 +32,7 @@ Components that include `useChange` listen to only those properties that they ac
          * [Issue 1](#issue-1)
          * [Issue 2](#issue-2)
 
-<!-- Added by: finom, at: Wed Mar 24 08:34:38 EET 2021 -->
+<!-- Added by: finom, at: Wed Mar 24 14:20:20 EET 2021 -->
 
 <!--te-->
 
