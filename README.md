@@ -314,9 +314,9 @@ const store = { key: 'value' };
 const [value, setValue] = useChange<RootStore>('key')
 ```
 
-There are noteworthy restrictions of this overload described below.
+There are noteworthy restrictions of this overload described at [Known TypeScript issues](#known-typescript-issues).
 
-**Implicit store overload with store selector.** The recommended way to use `useChange`.
+**Implicit store overload with store selector.** The recommended way to use `useChange` if it's used as a core data store library of your app.
 
 `useChange<T, K, S>(getStore: (store: T) => S, key: K & keyof S & string): [value: inferred, setter: (value: inferred) => inferred]`
 
@@ -333,7 +333,7 @@ const store: RootStore = { foo: { bar: { key: 'value' } } };
 const [value, setValue] = useChange((store: RootStore) => store.foo.bar, 'key'); // value is inferred as string
 ```
 
-## Secondary API 
+## Secondary API
 
 The library also provides a few helpful hooks and functions that cover additional needs while using `useChange`.
 
@@ -401,7 +401,7 @@ incrementCount();
 
 Allows to listen to object property changes outside of components. The store object argument should be given explicidly since `Provider` doesn't work here anymore. The method returns a funciton that unsubscribes from a given event.
 
-`listenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred) => void): void`
+`listenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred) => void): () => void`
 
 ```ts
 const store = { count: 0; };
