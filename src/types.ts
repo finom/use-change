@@ -1,4 +1,4 @@
-export type SliceRecord<SLICE> = SLICE & Record<keyof SLICE, unknown>;
+export type SliceRecord<SLICE> = SLICE & Partial<Record<keyof SLICE, unknown>>;
 
 export type Key<SLICE, KEY> = keyof SLICE & string & KEY;
 

@@ -7,7 +7,7 @@ const SET = 1;
 
 describe('useChange', () => {
   it('Explicit overload', () => {
-    const store = { x: 1 };
+    const store: { x: number, foo?: unknown } = { x: 1 };
     let renderedTimes = 0;
     const { result } = renderHook(() => {
       renderedTimes += 1;
@@ -38,7 +38,7 @@ describe('useChange', () => {
   });
 
   it('Implicit overload', () => {
-    const store = { x: { y: 1 } };
+    const store: { x: { y: number }, foo?: unknown } = { x: { y: 1 } };
     const wrapper = getWrapper(store);
     let renderedTimes = 0;
     const { result } = renderHook(() => {
@@ -70,7 +70,7 @@ describe('useChange', () => {
   });
 
   it('Implicit root store overload', () => {
-    const store = { x: 1 };
+    const store: { x: number, foo?: unknown } = { x: 1 };
     const wrapper = getWrapper(store);
     let renderedTimes = 0;
     const { result } = renderHook(() => {
