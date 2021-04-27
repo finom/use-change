@@ -19,7 +19,7 @@ Components that include `useChange` listen to only those properties that they ac
 - [💡 Quick start using Provider](#-quick-start-using-provider)
 - [👷 Designing the store](#-designing-the-store)
 - [✔️ Summary](#️-summary)
-- [�‍🚀 API](#-api)
+- [🚀 API](#-api)
   - [`useChange`](#usechange)
 - [🤖 Secondary API](#-secondary-api)
   - [`useValue`](#usevalue)
@@ -275,7 +275,7 @@ store.shop.cart.items = [
 ```
 
 
-## 🧑‍🚀 API
+## 🚀 API
 
 ### `useChange`
 
