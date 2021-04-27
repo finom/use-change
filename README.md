@@ -33,7 +33,7 @@ Components that include `useChange` listen to only those properties that they ac
 - [🐞 Known TypeScript issues](#-known-typescript-issues)
   - [Issue 1](#issue-1)
   - [Issue 2](#issue-2)
-- [Credits](#credits)
+- [🧐 Credits](#-credits)
 
 <!-- Added by: finom, at: Wed Mar 24 14:20:20 EET 2021 -->
 
@@ -591,6 +591,6 @@ But if a correct key is provided, the error will disappear.
 
 
 
-## Credits
+## 🧐 Credits
 
 Seasons Tree Image - <a href="https://www.vecteezy.com/free-vector/nature" target="_blank">Nature Vectors by Vecteezy</a>
