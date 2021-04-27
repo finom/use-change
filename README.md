@@ -1,27 +1,27 @@
-## use-change
+## 🙌 use-change
 
 [![npm version](https://badge.fury.io/js/use-change.svg)](https://badge.fury.io/js/use-change) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/) [![Build status](https://github.com/finom/use-change/actions/workflows/main.yml/badge.svg)](https://github.com/finom/use-change/actions)
 
-> The one React hook for application state 🤖
+> The one React hook for application state
 
 The idea of this library is that you define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at properties of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not even need.
 
 Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed.
 
-## Table of Contents
+## 📋 Table of Contents
 
 
 <!--ts-->
 
-- [use-change](#use-change)
-- [Table of Contents](#table-of-contents)
-- [Quick start](#quick-start)
-- [Quick start using Provider](#quick-start-using-provider)
-- [Designing the store](#designing-the-store)
-- [Summary](#summary)
-- [API](#api)
+- [🙌 use-change](#-use-change)
+- [📋 Table of Contents](#-table-of-contents)
+- [☕ Quick start](#-quick-start)
+- [💡 Quick start using Provider](#-quick-start-using-provider)
+- [👷 Designing the store](#-designing-the-store)
+- [✔️ Summary](#️-summary)
+- [�‍🚀 API](#-api)
   - [`useChange`](#usechange)
-- [Secondary API](#secondary-api)
+- [🤖 Secondary API](#-secondary-api)
   - [`useValue`](#usevalue)
   - [`useSet`](#useset)
   - [`useSilent`](#usesilent)
@@ -29,8 +29,8 @@ Components that include `useChange` listen to only those properties that they ac
   - [`unlistenChange`](#unlistenchange)
   - [`Context`](#context)
   - [`Provider`](#provider)
-- [Persistent store](#persistent-store)
-- [Known TypeScript issues](#known-typescript-issues)
+- [🏔️ Persistent store](#️-persistent-store)
+- [🐞 Known TypeScript issues](#-known-typescript-issues)
   - [Issue 1](#issue-1)
   - [Issue 2](#issue-2)
 - [Credits](#credits)
@@ -41,8 +41,7 @@ Components that include `useChange` listen to only those properties that they ac
 
 ![image](./assets/use-change.png)
 
-
-## Quick start
+## ☕ Quick start
 
 1. Install by `npm i use-change` or `yarn add use-change`.
 2. Define an object of any shape. It's going to be your store.
@@ -78,7 +77,7 @@ store.count = 69; // nice
 
 The example shows how you can use the hook as a local data store for a component but `store` object can be exported and used by other components. This may be an anti-DRY pattern, that's why it's recommended to use `Provider` exported from `use-change`.
 
-## Quick start using Provider
+## 💡 Quick start using Provider
 
 1. Install by `npm i use-change` or `yarn add use-change`.
 2. Define an object of any shape. This is going to be your store.
@@ -120,7 +119,7 @@ const MyComponent = (): ReactElement => {
 export default MyComponent;
 ```
 
-## Designing the store
+## 👷 Designing the store
 
 You can use an object literal to define store for simple use, but real world data usually consists more than just a `count`. It's recommended to build your store as a class instance. Shape of the class is 100% custom and it doesn't require to use decorators or wrappers.
 
@@ -194,7 +193,7 @@ const MyComponent = (): ReactElement => {
 }
 ```
 
-As you can see here we import `RootStore` class to be used just as a type, but we don't import store itself there thanks to `Provider`. But you can import it though just to check how cool it is:
+As you can see we've passed `({ storeBranchA }: RootStore) => storeBranchA` as a first argument selecting that piece of store that consists the sought property. There is also a small noteworthy detail. We import `RootStore` class to be used just as a type, but we don't import store itself there thanks to `Provider`. You can import it though just to check how cool the hook is!
 
 ```js
 // ...
@@ -211,7 +210,7 @@ const MyComponent = (): ReactElement => {
 
 The component is going to be updated every second since it listens to the `store.storeBranchA.countA` property changes.
 
-## Summary
+## ✔️ Summary
 
 Congrats! You basically passed the tutorial of how to use `use-change` hook! Let's just mention a few last notes:
 
@@ -220,11 +219,11 @@ Congrats! You basically passed the tutorial of how to use `use-change` hook! Let
 2. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in the root of store `useChange<T>(key: string)` 
 3. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in a nested object from the store `useChange<T>(storeSelector: (store: T) => object, key: string)` 
 
-**Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow infinite times. 
+**Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow infinite number of times. 
 
 ![](./assets/seasons-tree-with-roots-free-vector.jpeg)
 
-Let's take a look at a custom store interface.
+As another example let's take a look at a custom store interface.
 
 ```js
 interface RootStore {
@@ -243,17 +242,17 @@ interface RootStore {
 }
 ```
 
-If the store is implemented by the interface, then:
+If store is implemented by the interface, then:
 
-- `RootStore['me']`, `RootStore['shop']`, `RootStore['shop']['cart']`  (the store) should not be changed since they're "tree branches".
-- But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']` (state) can, since they're "tree leaves" that can be listened by components.
+- `RootStore['me']`, `RootStore['shop']`, `RootStore['shop']['cart']` should not be changed since they're "tree branches". These properties are the **store** that can be returned by store selectors.
+- But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']`  can, since they're "tree leaves" that can be listened by components. These properties are the **state**.
 
 This means that any listenable property need to be overriden by a new value, but never mutated.
 
 ```js
 const [cartItems, setCartItems] = useChange(
-  ({ shop }: RootStore) => shop.cart, // select a data tree "branch"
-  'items', // 
+  ({ shop }: RootStore) => shop.cart, // select the "tree branch"
+  'items', // use shop.cart.items property
 );
 
 // ...
@@ -276,7 +275,7 @@ store.shop.cart.items = [
 ```
 
 
-## API
+## 🧑‍🚀 API
 
 ### `useChange`
 
@@ -333,7 +332,7 @@ const store: RootStore = { foo: { bar: { key: 'value' } } };
 const [value, setValue] = useChange((store: RootStore) => store.foo.bar, 'key'); // value is inferred as string
 ```
 
-## Secondary API
+## 🤖 Secondary API
 
 The library also provides a few helpful hooks and functions that cover additional needs while using `useChange`.
 
@@ -469,7 +468,7 @@ const App = (): ReactElement => (
 export default App;
 ```
 
-## Persistent store
+## 🏔️ Persistent store
 
 There is no built-in feature to store data persistently but the elegancy of use-change design makes possible to create such thing easily.
 
@@ -537,7 +536,7 @@ const [age, setAge] = useChange(({ persistent }: RootStore) => persistent, 'age'
 setAge(20);
 ```
 
-## Known TypeScript issues
+## 🐞 Known TypeScript issues
 
 If you know how to fix one of the following TypeScript problems, please make a PR or create an issue with your idea of how it could be fixed.
 
