@@ -8,6 +8,8 @@ Define a skeleton of your data store as a flat or a nested object, and with the 
 
 Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed.
 
+![image](https://user-images.githubusercontent.com/1082083/119268741-fdd9e380-bbfc-11eb-94c1-522b3d0faac0.png)
+
 ## 📋 Table of Contents
 
 
