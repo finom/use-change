@@ -2,9 +2,9 @@
 
 [![npm version](https://badge.fury.io/js/use-change.svg)](https://badge.fury.io/js/use-change) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/) [![Build status](https://github.com/finom/use-change/actions/workflows/main.yml/badge.svg)](https://github.com/finom/use-change/actions)
 
-> The one React hook for application state
+> The one "keep it stupid simple" React hook for application state
 
-The idea of this library is that you define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at properties of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not even need.
+Define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at definite props of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not even need.
 
 Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed.
 
@@ -242,7 +242,7 @@ interface RootStore {
 }
 ```
 
-If store is implemented by the interface, then:
+If applicaiton store is implemented by the interface, then:
 
 - `RootStore['me']`, `RootStore['shop']`, `RootStore['shop']['cart']` should not be changed since they're "tree branches". These properties are the **store** that can be returned by store selectors.
 - But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']`  can, since they're "tree leaves" that can be listened by components. These properties are the **state**.
@@ -400,7 +400,7 @@ incrementCount();
 
 Allows to listen to object property changes outside of components. The store object argument should be given explicidly since `Provider` doesn't work here anymore. The method returns a funciton that unsubscribes from a given event.
 
-`listenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred) => void): () => void`
+`listenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred, previousValue: inferred) => void): () => void`
 
 ```ts
 const store = { count: 0; };

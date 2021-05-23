@@ -6,8 +6,10 @@ export type ReturnTuple<SLICE, KEY extends keyof SLICE>
   = [SLICE[KEY], (value: SLICE[KEY] | ((value: SLICE[KEY]) => SLICE[KEY])) => void];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Handler<SLICE = any, KEY = any> = (value: SLICE[Key<SLICE, KEY>]) => any;
-
+export type Handler<SLICE = any, KEY = any> = (
+  value: SLICE[Key<SLICE, KEY>],
+  prev: SLICE[Key<SLICE, KEY>],
+) => any; // eslint-disable-line @typescript-eslint/no-explicit-any
 export interface Selector<STORE, SLICE> {
   (store: STORE): SliceRecord<SLICE>;
 }

@@ -17,9 +17,10 @@ export default function listenChange<SLICE, KEY>(
       get: () => object[sym],
       set: (v: unknown) => {
         if (object[sym] !== v) {
+          const prev = object[sym];
           object[sym] = v;
 
-          all[key]?.forEach((h) => { h(v); });
+          all[key]?.forEach((h) => { h(v, prev); });
         }
       },
     });

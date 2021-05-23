@@ -12,6 +12,7 @@
     "prepublish": "npm t && npm run build",
     "postpublish": "node post-publish-test/post-publish.js",
     "patch": "npm version patch && npm publish && git push && git push --tags",
+    "minor": "npm version minor && npm publish && git push && git push --tags",
     "toc": "./gh-md-toc --insert README.md && rm README.md.*",
     "upgrade": "npx npm-check-updates -u && npm i"
   },
