@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/use-change.svg)](https://badge.fury.io/js/use-change) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/) [![Build status](https://github.com/finom/use-change/actions/workflows/main.yml/badge.svg)](https://github.com/finom/use-change/actions)
 
-> The one "keep it stupid simple" React hook for application state
+> The one stupid simple React hook for application state
 
 Define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at definite props of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not even need.
 
@@ -33,6 +33,9 @@ Components that include `useChange` listen to only those properties that they ac
 - [🐞 Known TypeScript issues](#-known-typescript-issues)
   - [Issue 1](#issue-1)
   - [Issue 2](#issue-2)
+- [🤷 FAQ](#-faq)
+  - [Another React state library? But why?](#another-react-state-library-but-why)
+  - [Where are the actions, Lebowski?](#where-are-the-actions-lebowski)
 - [🧐 Credits](#-credits)
 
 <!-- Added by: finom, at: Wed Mar 24 14:20:20 EET 2021 -->
@@ -587,9 +590,79 @@ But if a correct key is provided, the error will disappear.
 ![image](https://user-images.githubusercontent.com/1082083/111463052-d4e23180-8727-11eb-95b9-0e93cdd99e1b.png)
 
 
+## 🤷 FAQ
+
+### Another React state library? But why?
+
+I've worked on a small pet project and data layer was going to be thin and I wanted to make the centralised store as compact as possible. [React context](https://reactjs.org/docs/context.html) was not enough but Redux was too much. I also looked at MobX but I didn't like how it looks when it's used with hooks. Less familiar alternatives also weren't that satisfying. I've got an idea of a small "react context enhancement" and made [a library](https://github.com/finom/defi/tree/master/packages/react) based on my old framework that by the time being isn't used by somebody except of me.
+
+The approach appeared to be so cool so I decided to get rid of any dependencies and make a tiny and standalone implementation of this idea.
+
+Is that better than anything else? If you like maximum flexibility, then yes. If you like strict patterns more than "do whatever you want" things, then no. Your choice should be dependent on busines needs and at most of cases you should something strict and well-known.
+
+### Where are the actions, Lebowski?
+
+There is no such thing as "action". Instead of them you can define class methods that modify data and corresponding components that use `useChange` or `useValue` listening that data are going to react accourdingly.
 
 
+```tsx
+...
+const MyComponent = (): ReactElement => {
+  const [count, setCount] = useChange(({ foo }: RootStore) => foo, 'count');
+  ...
+```
 
+```ts
+class Foo {
+  public count = 0;
+
+  // this is the "action" itself
+  doSomething() {
+    // MyComponent listens to the property changes
+    this.count++;
+  }
+}
+
+export class RootStore {
+  foo = new Foo();
+
+  constructor() {
+    // call the "action" (the method) every 1 second
+    setTinterval(() => {
+      this.foo.doSomething();
+    }, 1000);
+  }
+}
+
+export default new RootStore();
+```
+
+You can also call the "action" at component with the help of `useSilent` hook if you don't want to export store object (exporting store itself is not prohibited but also is not recommended).
+
+```tsx
+const MyComponent = (): ReactElement => {
+  const doSomething = useSilent(({ foo }: RootStore) => foo, 'doSomething');
+  
+  return (
+    <Button onClick={() => doSomething()}></Button>
+  );
+}
+```
+
+Plus to that you can get the store using `React.useContext` with use-change `Context`, then call the "action" by accessing it directly. It's recommended to use `useSilent` thought as a safer alternative to avoid direct store modifications within components. 
+
+```tsx
+import React, { useContext } from 'react';
+import { Context as UseChangeContext } from 'use-change';
+import { RootStore } from './store';
+
+const MyComponent = () => {
+  const store = useContext<RootStore>(UseChangeContext);
+  return (
+    <Button onClick={() => store.foo.doSomething()}></Button>
+  );
+}
+```
 
 ## 🧐 Credits
 
