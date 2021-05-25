@@ -492,7 +492,7 @@ function persistentValue<T>(key: keyof PersistentStore, defaultValue: T) {
 }
 
 // define the part of root store that responsible for persistent store
-export class PersistentStore {
+export default class PersistentStore {
   public age = persistentValue<number>('age', 18);
 
   public firstName = persistentValue<string>('firstName', 'John');
@@ -509,16 +509,13 @@ export class PersistentStore {
     });
   }
 }
-
-export default new PersistentStore();
-
 ```
 
 Use the class instance as part of your root store.
 
 ```js
 // ./store.ts
-import { PersistentStore } from './PersistentStore';
+import PersistentStore from './PersistentStore';
 
 export class RootStore {
   public readonly persistent = new PersistentStore();
