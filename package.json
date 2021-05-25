@@ -33,10 +33,10 @@
   },
   "homepage": "https://github.com/finom/use-change#readme",
   "devDependencies": {
-    "@testing-library/react-hooks": "^6.0.0",
+    "@testing-library/react-hooks": "^7.0.0",
     "@types/jasmine": "^3.7.4",
     "@types/react": "^17.0.6",
-    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
     "eslint": "^7.27.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-plugin-import": "^2.23.3",
@@ -48,7 +48,7 @@
     "jasmine-ts": "^0.3.3",
     "react": "^17.0.1",
     "react-test-renderer": "^17.0.2",
-    "ts-node": "^9.1.1",
+    "ts-node": "^10.0.0",
     "typescript": "^4.2.4"
   },
   "peerDependencies": {
