@@ -599,7 +599,7 @@ But if a correct key is provided, the error will disappear.
 
 You'd need that if React, MobX, Apollo Client, etc is too much (too many concepts to follow, too much code to write for simple things) but a custom context provider is not enough.
 
-Is that better than anything else? If you like maximum flexibility, then yes. If you like strict patterns more than "do whatever you want" things, then no. Your choice should be dependent on busines needs and at most of cases you should something strict and well-known.
+Is that better than anything else? If you like flexibility, then yes. If you like strict patterns more than "do whatever you want" things, then no. Your choice should be dependent on busines needs and at most of cases you should something strict and well-known.
 
 ### Where are the actions, Lebowski?
 
