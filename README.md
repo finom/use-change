@@ -597,9 +597,7 @@ But if a correct key is provided, the error will disappear.
 
 ### Another React state library? But why?
 
-I've worked on a small pet project and data layer was going to be thin and I wanted to make the centralised store as compact as possible. [React context](https://reactjs.org/docs/context.html) was not enough but Redux was too much. I also looked at MobX but I didn't like how it looks when it's used with hooks. Less familiar alternatives also weren't that satisfying. I've got an idea of a small "react context enhancement" and made [a library](https://github.com/finom/defi/tree/master/packages/react) based on my old framework that by the time being isn't used by somebody except of me.
-
-The approach appeared to be so cool so I decided to get rid of any dependencies and make a tiny and standalone implementation of this idea.
+You'd need that if React, MobX, Apollo Client, etc is too much (too many concepts to follow, too much code to write for simple things) but a custom context provider is not enough.
 
 Is that better than anything else? If you like maximum flexibility, then yes. If you like strict patterns more than "do whatever you want" things, then no. Your choice should be dependent on busines needs and at most of cases you should something strict and well-known.
 
