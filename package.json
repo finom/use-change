@@ -1,6 +1,6 @@
 {
   "name": "use-change",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "The useChange hook",
   "main": "dist/index.js",
   "scripts": {
