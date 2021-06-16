@@ -3,21 +3,21 @@ import {
   ReturnTuple, Selector, SliceRecord, Key,
 } from './types';
 
-function useSet<STORE, KEY = keyof STORE, SLICE = STORE>(
+function useSilent<STORE, KEY = keyof STORE, SLICE = STORE>(
   key: Key<SLICE, KEY>,
 ): ReturnTuple<SLICE, typeof key>[0];
 
-function useSet<STORE, KEY, SLICE = STORE>(
+function useSilent<STORE, KEY, SLICE = STORE>(
   storeSlice: SliceRecord<SLICE>,
   key: Key<SLICE, KEY>,
 ): ReturnTuple<SLICE, typeof key>[0];
 
-function useSet<STORE, KEY, SLICE = STORE>(
+function useSilent<STORE, KEY, SLICE = STORE>(
   storeSlice: Selector<STORE, SLICE>,
   key: Key<SLICE, KEY>,
 ): ReturnTuple<SLICE, typeof key>[0];
 
-function useSet<STORE, KEY, SLICE = STORE>(
+function useSilent<STORE, KEY, SLICE = STORE>(
   storeSlice: Selector<STORE, SLICE>
   | Key<SLICE, KEY>
   | SliceRecord<SLICE>,
@@ -28,4 +28,4 @@ function useSet<STORE, KEY, SLICE = STORE>(
   return slice[key];
 }
 
-export default useSet;
+export default useSilent;
