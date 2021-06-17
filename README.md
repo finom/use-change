@@ -30,6 +30,7 @@ Components that include `useChange` listen to only those properties that they ac
 - [🤖 Secondary API](#-secondary-api)
   - [`useValue`](#usevalue)
   - [`useSet`](#useset)
+  - [`useGet`](#useget)
   - [`useSilent`](#usesilent)
   - [`listenChange`](#listenchange)
   - [`unlistenChange`](#unlistenchange)
@@ -369,6 +370,20 @@ const setBarKey = useSet((store: RootStore) => store.foo.bar, 'key');
 
 // almost the same as the following, but doesn't trigger component re-render
 const setBarKey = useChange((store: RootStore) => store.foo.bar, 'key')[1];
+```
+
+### `useGet`
+
+Supports 100% the same overload as `useChange` does but returns a function that returns store property value. The hook is useful when you need to get an actual property value (at `useEffect` or `useCallback`) but you don't want to trigger component to re-render.
+
+```ts
+// a change of the 'key' property never re-renders the component
+const getFooBar = useGet((store: RootStore) => store.foo.bar, 'key'); 
+
+useEffect(() => {
+  const fooBar = getFooBar(); // returns store.foo.bar['key']
+  console.log(fooBar);
+});
 ```
 
 

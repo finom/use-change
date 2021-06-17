@@ -14,10 +14,11 @@ execSync('rm -rf ../node_modules', { cwd: __dirname });
 const expect = require('expect.js');
 
 const {
-  default: useChange, useValue, useSet, useSilent, listenChange, unlistenChange, Context, Provider,
+  default: useChange, useValue, useGet, useSet, useSilent, 
+  listenChange, unlistenChange, Context, Provider,
 } = require('use-change');
 
-for (const f of [useChange, useValue, useSet, useSilent, listenChange, unlistenChange]) {
+for (const f of [useChange, useValue, useGet, useSet, useSilent, listenChange, unlistenChange]) {
   expect(typeof f === 'function').to.be(true);
 }
 
