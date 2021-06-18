@@ -377,7 +377,7 @@ const setBarKey = useChange((store: RootStore) => store.foo.bar, 'key')[1];
 Supports 100% the same overload as `useChange` does but returns a function that returns store property value. The hook is useful when you need to get an actual property value (at `useEffect` or `useCallback`) but you don't want to trigger component to re-render.
 
 ```ts
-// a change of the 'key' property never re-renders the component
+// a change of the 'key' property never re-renders the component even if field value is changed
 const getFooBar = useGet((store: RootStore) => store.foo.bar, 'key'); 
 
 useEffect(() => {
