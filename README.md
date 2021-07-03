@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/use-change.svg)](https://badge.fury.io/js/use-change) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/) [![Build status](https://github.com/finom/use-change/actions/workflows/main.yml/badge.svg)](https://github.com/finom/use-change/actions)
 
-> The one stupid simple React hook for application state
+> Application-wide alternative for `React.useState` 
 
 Define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at definite props of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not even need.
 
@@ -374,7 +374,7 @@ const setBarKey = useChange((store: RootStore) => store.foo.bar, 'key')[1];
 
 ### `useGet`
 
-Supports 100% the same overload as `useChange` does but returns a function that returns store property value. The hook is useful when you need to get an actual property value (at `useEffect` or `useCallback`) but you don't want to trigger component to re-render.
+Supports 100% the same overload as `useChange` does but returns a function that returns store property value. The hook is useful when you need to get an actual property value (at `useEffect` or `useCallback`) but you don't want to make component to re-render. The hook **doesn't trigger component re-render** when property value is changed.
 
 ```ts
 // a change of the 'key' property never re-renders the component even if field value is changed

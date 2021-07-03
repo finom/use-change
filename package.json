@@ -1,7 +1,7 @@
 {
   "name": "use-change",
   "version": "0.2.2",
-  "description": "The useChange hook",
+  "description": "Application-wide alternative for React.useState",
   "main": "dist/index.js",
   "scripts": {
     "test": "npm run unit && npm run lint && tsc --noemit",
