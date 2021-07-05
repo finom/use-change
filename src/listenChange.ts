@@ -30,11 +30,11 @@ export default function listenChange<SLICE, KEY>(
 
   const handlers = all[key] || [];
 
-  all[key] = handlers;
-
   if (!handlers.includes(handler)) {
     handlers.push(handler);
   }
+
+  all[key] = handlers;
 
   return () => {
     all[key] = all[key].filter((h) => h !== handler);
