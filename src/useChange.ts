@@ -50,9 +50,7 @@ function useChange<STORE, KEY, SLICE = STORE>(
       handler();
     }
 
-    const unlisten = listenChange(slice, key, handler);
-
-    return () => { unlisten(); };
+    return listenChange(slice, key, handler);
   }, [key, slice, stateValue]);
 
   return [stateValue, setValue];

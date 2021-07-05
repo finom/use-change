@@ -17,10 +17,10 @@ export default function parseArgs<STORE, KEY = keyof STORE, SLICE = STORE>(
     slice = store as unknown as SliceRecord<SLICE>;
     key = storeSlice as Key<SLICE, KEY>;
   } else if (typeof storeSlice === 'object') {
-    slice = storeSlice as SliceRecord<SLICE>;
+    slice = storeSlice;
     key = givenKey;
   } else if (typeof storeSlice === 'function') {
-    slice = (storeSlice as Selector<STORE, SLICE>)(store);
+    slice = storeSlice(store);
     key = givenKey;
   } else {
     throw new Error('Unknown store slice');

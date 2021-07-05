@@ -37,6 +37,6 @@ export default function listenChange<SLICE, KEY>(
   }
 
   return () => {
-    all[key] = handlers.filter((h) => h !== handler);
+    all[key] = all[key].filter((h) => h !== handler);
   };
 }
