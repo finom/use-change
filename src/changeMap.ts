@@ -1,4 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-underscore-dangle */
 import { Handler } from './types';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default new WeakMap<any, Record<string, Handler[]>>();
+// allow to use one global WeakMap to support multiple instances of use-change
+// for example two different scripts that both use their own use-change instance
+// and they share one object to listen to
+const globalObject = typeof window !== 'undefined' ? window as { __useChangeObjectMap?: WeakMap<any, Record<string, Handler[]>> } : {};
+
+const weakMap = globalObject.__useChangeObjectMap || new WeakMap<any, Record<string, Handler[]>>();
+
+globalObject.__useChangeObjectMap = weakMap;
+
+export default weakMap;
