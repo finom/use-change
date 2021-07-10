@@ -69,6 +69,38 @@ describe('useChange', () => {
     expect(renderedTimes).toBe(3);
   });
 
+  it('Implicit overload & nested store', () => {
+    const store: { x: { y: { z: number } }, foo?: unknown } = { x: { y: { z: 1 } } };
+    const wrapper = getWrapper(store);
+    let renderedTimes = 0;
+    const { result } = renderHook(() => {
+      renderedTimes += 1;
+      return useChange(({ x }: typeof store) => x.y, 'z');
+    }, { wrapper });
+
+    expect(result.current[VALUE]).toBe(1);
+    expect(renderedTimes).toBe(1);
+    expect(store.x.y.z).toBe(1);
+
+    act(() => { result.current[SET](2); });
+
+    expect(result.current[VALUE]).toBe(2);
+    expect(renderedTimes).toBe(2);
+    expect(store.x.y.z).toBe(2);
+
+    act(() => { result.current[SET](2); });
+
+    expect(result.current[VALUE]).toBe(2);
+    expect(renderedTimes).toBe(2);
+    expect(store.x.y.z).toBe(2);
+
+    act(() => { store.x.y.z = 3; });
+
+    expect(result.current[VALUE]).toBe(3);
+    expect(store.x.y.z).toBe(3);
+    expect(renderedTimes).toBe(3);
+  });
+
   it('Implicit root store overload', () => {
     const store: { x: number, foo?: unknown } = { x: 1 };
     const wrapper = getWrapper(store);
