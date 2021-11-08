@@ -147,6 +147,7 @@ export class RootStore {
 }
 
 // export store selectors or, in other words, paths to the objects
+export const ROOT = (store: RootStore) => store;
 export const PATH_A = ({ storeBranchA }: RootStore) => storeBranchA;
 export const PATH_B = ({ storeBranchB }: RootStore) => storeBranchB;
 
@@ -154,6 +155,8 @@ export default new RootStore();
 ```
 
 At this example we're also exporting so-called "store selectors" which a one-line functions that provide a path to desired object. This makes the code look clean without providing things like `({ users }: RootStore) => users` every time instead we define a simple constant. In case of users it's going to be called `USERS` and provided as a first useChange argument: `useChange(USERS, 'something')` (get `store.users.something` property). It's not required but recommended to make code look much nicer.
+
+Also take a look at `ROOT` selector function. It's going to be used to get and modify properties from store itself like that: `useChange(ROOT, 'count')` to avoid usage of duplicating `(store: RootStore) => store` function.
 
 ```js
 // ./MyComponent.tsx
