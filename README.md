@@ -217,7 +217,7 @@ Congrats! You basically passed the tutorial of how to use `use-change` hook! Tho
 
 **The hook supports two overloads**
 1. Explicit store use. At this case you pass the store object to `useChange` hook: `useChange<T>(object: T, key: string)`
-2. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in a nested object from the store `useChange<T>(storeSelector: (store: T) => object, key: string)`, where `storeSelector` is a path to a store object.
+2. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in a nested object from the store `useChange<T>(storeSelector: (store: T) => object, key: string)`, where `storeSelector` is a path to a store object as a one-line function.
 
 **Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow infinite number of times. 
 
