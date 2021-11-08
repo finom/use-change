@@ -11,8 +11,6 @@ Components that call `useChange` listen to only those properties that they actua
 ## 📋 Table of Contents
 
 <!--ts-->
-* [use-change](#-use-change)
-* [Table of Contents](#-table-of-contents)
 * [Quick start](#-quick-start)
 * [Quick start using Provider and store as a class](#-quick-start-using-provider-and-store-as-a-class)
 * [Designing the store](#-designing-the-store)
