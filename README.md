@@ -73,7 +73,7 @@ The example shows how you can use the hook as a local data store for a component
 ## 💡 Quick start using Provider and store as a class instance
 
 1. Install by `npm i use-change` or `yarn add use-change`.
-2. Define an object of any shape. At this case this is a store class instance.
+2. Define an object of any shape. At this case this is a store class instance instead of an in-line object.
 3. Wrap your components by `Provider` exported by `use-change`.
 4. Add `useChange` to your components.
 
