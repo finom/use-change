@@ -70,7 +70,7 @@ store.count = 69; // nice
 
 The example shows how you can use the hook as a local data store for a component but `store` object can be exported and used by other components. This may be an anti-DRY pattern, that's why it's recommended to use `Provider` exported from `use-change`.
 
-## 💡 Quick start using Provider and store as a class
+## 💡 Quick start using Provider and store as a class instance
 
 1. Install by `npm i use-change` or `yarn add use-change`.
 2. Define an object of any shape. At this case this is a store class instance.
@@ -109,7 +109,6 @@ import React, { ReactElement } from 'react'
 import useChange from 'use-change';
 import { RootStore } from './store';
 
-
 const MyComponent = (): ReactElement => {
   // the first argument is a path to store object
   // if store is nested the path could look like 
@@ -129,7 +128,7 @@ export default MyComponent;
 
 ## 👷 Designing the store
 
-Let's make it a little bit detailed and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's add a few classess that also consist just counts.
+Let's make it a little bit detailed and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's create a few classess that also consist counts only.
 
 ```js
 // ./store.ts
@@ -202,11 +201,11 @@ class RootStore {
 
   constructor() {
     setInterval(() => {
-      this.increment();
+      this.incrementCount();
     }, 1000);
   }
 
-  public increment() {
+  public readonly incrementCount() {
     this.count++;
   }
 }
@@ -279,10 +278,7 @@ store.shop.cart.items = [
 
 ### `useChange`
 
-**Explicit store overload.** At this case you provide store object directly. Use cases: 
-
-1. You don't want to use `Provider`.
-2. You have existing application and you want to add some extra logic without affecting entire application.
+**Explicit store overload.** At this case you provide store object directly. It's useful if you don't want to use `Provider`. Therefore, you can use the hook locally as a one-component store.
 
 In other cases it's recommended to use overload with store selector.
 
@@ -302,7 +298,7 @@ const store: RootStore = { foo: { bar: { key: 'value' } } };
 const [value, setValue] = useChange(store.foo.bar, 'key'); // value is inferred as string
 ```
 
-**Implicit store overload.** The recommended way to use `useChange` if it's used as a core data store library of your app.
+**Implicit store overload.** The recommended way to use `useChange` if it's used as a core data store library of an app you work on.
 
 `useChange<T, K, S>(getStore: (store: T) => S, key: K & keyof S & string): [value: inferred, setter: (value: inferred) => inferred]`
 
