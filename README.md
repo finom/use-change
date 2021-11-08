@@ -90,6 +90,7 @@ export default new RootStore(); // init the store instance
 ```
 
 ```js
+// ./App.tsx
 import React, { ReactElement } from 'react';
 import useChange, { Provider as UseChangeProvider } from 'use-change';
 import MyComponent from './MyComponent';
@@ -130,35 +131,6 @@ export default MyComponent;
 
 ## 👷 Designing the store
 
-It's recommended to build your store as a class instance. Shape of the class is 100% custom and it doesn't require to use decorators or wrappers.
-
-```js
-// ./store.ts
-export class RootStore {
-  public count = 0;
-  // ...
-}
-
-export default new RootStore();
-```
-
-Then import the store and use it as `Provider` value.
-
-```js
-import React, { ReactElement } from 'react';
-import useChange, { Provider as UseChangeProvider } from 'use-change';
-import MyComponent from './MyComponent'; // ./MyComponent.tsx remains the same
-import store from './store';
-
-const App = (): ReactElement => (
-  <UseChangeProvider value={store}>
-    <MyComponent />
-  </UseChangeProvider>
-)
-
-export default App;
-```
-
 Let's make it a little bit detailed and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's add a few classess that also consist just counts.
 
 ```js
@@ -177,24 +149,24 @@ export class RootStore {
   public readonly storeBranchB = new StoreBranchB();
 }
 
-// export store selectors
-export const STORE_BRANCH_A = ({ storeBranchA }: RootStore) => storeBranchA;
-export const STORE_BRANCH_B = ({ storeBranchB }: RootStore) => storeBranchB;
+// export store selectors or, in other words, paths to the objects
+export const PATH_A = ({ storeBranchA }: RootStore) => storeBranchA;
+export const PATH_B = ({ storeBranchB }: RootStore) => storeBranchB;
 
 export default new RootStore();
 ```
 
-At this example we're also exporting so-called "store selectors" which a one-line functions that provide a path to desired object. This makes the code look clean without providing things like `({ users }: RootStore) => users` every time. Instead we define a simple constant, in case of users it's going to be called `USERS` and provided as a first useChange argument: `useChange(USERS, 'something')` (get `store.users.something` property).
+At this example we're also exporting so-called "store selectors" which a one-line functions that provide a path to desired object. This makes the code look clean without providing things like `({ users }: RootStore) => users` every time instead we define a simple constant. In case of users it's going to be called `USERS` and provided as a first useChange argument: `useChange(USERS, 'something')` (get `store.users.something` property). It's not required but recommended to make code look much nicer.
 
 ```js
 // ./MyComponent.tsx
 import React, { ReactElement } from 'react'
 import useChange from 'use-change';
-import { STORE_BRANCH_A, STORE_BRANCH_B } from './store';
+import { PATH_A, PATH_B } from './store';
 
 const MyComponent = (): ReactElement => {
-  const [countA, setCountA] = useChange(STORE_BRANCH_A, 'countA');
-  const [countB, setCountB] = useChange(STORE_BRANCH_B, 'countB');
+  const [countA, setCountA] = useChange(PATH_A, 'countA');
+  const [countB, setCountB] = useChange(PATH_B, 'countB');
   
   return (
     <>
@@ -207,7 +179,7 @@ const MyComponent = (): ReactElement => {
 }
 ```
 
-As you can see the component doesn't receive store object implicitly, therefore it's not possible to modify it manually. You can try to do that though to see how component reacts on changes of a listened property.
+As you can see the component doesn't modify store object implicitly, therefore it's not possible to change it manually from components. You can try to do that though to see how component reacts on changes of a listened property.
  
 ```js
 // ...
@@ -223,6 +195,24 @@ const MyComponent = (): ReactElement => {
 
 
 The component is going to be updated every second since it listens to the `store.storeBranchA.countA` property changes.
+
+The property can be also manipulated manually inside class methods.
+
+```js
+class RootStore {
+  public count = 0;
+
+  constructor() {
+    setInterval(() => {
+      this.increment();
+    }, 1000);
+  }
+
+  public increment() {
+    this.count++;
+  }
+}
+```
 
 ## ✔️ Summary
 
