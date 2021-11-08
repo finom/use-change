@@ -100,36 +100,4 @@ describe('useChange', () => {
     expect(store.x.y.z).toBe(3);
     expect(renderedTimes).toBe(3);
   });
-
-  it('Implicit root store overload', () => {
-    const store: { x: number, foo?: unknown } = { x: 1 };
-    const wrapper = getWrapper(store);
-    let renderedTimes = 0;
-    const { result } = renderHook(() => {
-      renderedTimes += 1;
-      return useChange<typeof store, 'x'>('x');
-    }, { wrapper });
-
-    expect(result.current[VALUE]).toBe(1);
-    expect(renderedTimes).toBe(1);
-    expect(store.x).toBe(1);
-
-    act(() => { result.current[SET](2); });
-
-    expect(result.current[VALUE]).toBe(2);
-    expect(renderedTimes).toBe(2);
-    expect(store.x).toBe(2);
-
-    act(() => { result.current[SET](2); });
-
-    expect(result.current[VALUE]).toBe(2);
-    expect(renderedTimes).toBe(2);
-    expect(store.x).toBe(2);
-
-    act(() => { store.x = 3; });
-
-    expect(result.current[VALUE]).toBe(3);
-    expect(store.x).toBe(3);
-    expect(renderedTimes).toBe(3);
-  });
 });

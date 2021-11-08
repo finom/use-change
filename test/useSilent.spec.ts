@@ -41,24 +41,4 @@ describe('useSilent', () => {
     expect(store.x.y).toBe(2);
     expect(renderedTimes).toBe(1);
   });
-
-  it('Implicit root store overload', () => {
-    const store = { x: 1 };
-    const wrapper = getWrapper(store);
-    let renderedTimes = 0;
-    const { result } = renderHook(() => {
-      renderedTimes += 1;
-      return useSilent<typeof store, 'x'>('x');
-    }, { wrapper });
-
-    expect(result.current).toBe(1);
-    expect(renderedTimes).toBe(1);
-    expect(store.x).toBe(1);
-
-    act(() => { store.x = 2; });
-
-    expect(result.current).toBe(1);
-    expect(store.x).toBe(2);
-    expect(renderedTimes).toBe(1);
-  });
 });

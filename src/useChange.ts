@@ -1,13 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import listenChange from './listenChange';
-import parseArgs from './parseArgs';
+import getSlice from './getSlice';
 import {
   Key, ReturnTuple, Selector, SliceRecord,
 } from './types';
-
-function useChange<STORE, KEY = keyof STORE, SLICE = STORE>(
-  key: Key<SLICE, KEY>,
-): ReturnTuple<SLICE, typeof key>;
 
 function useChange<STORE, KEY, SLICE = STORE>(
   storeSlice: SliceRecord<SLICE>,
@@ -20,12 +16,10 @@ function useChange<STORE, KEY, SLICE = STORE>(
 ): ReturnTuple<SLICE, typeof key>;
 
 function useChange<STORE, KEY, SLICE = STORE>(
-  storeSlice: Selector<STORE, SLICE>
-  | Key<SLICE, KEY>
-  | SliceRecord<SLICE>,
-  givenKey?: Key<SLICE, KEY>,
+  storeSlice: Selector<STORE, SLICE> | SliceRecord<SLICE>,
+  key: Key<SLICE, KEY>,
 ): unknown {
-  const { slice, key } = parseArgs(storeSlice, givenKey);
+  const slice = getSlice(storeSlice);
 
   const [stateValue, setStateValue] = useState(slice[key]);
 
