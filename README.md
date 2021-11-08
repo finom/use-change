@@ -31,13 +31,9 @@ Components that include `useChange` listen to only those properties that they ac
   - [`Context`](#context)
   - [`Provider`](#provider)
 - [🏔️ Persistent store](#️-persistent-store)
-- [🐞 Known TypeScript issues](#-known-typescript-issues)
-  - [Issue 1](#issue-1)
-  - [Issue 2](#issue-2)
 - [🤷 FAQ](#-faq)
   - [Another React state library? But why?](#another-react-state-library-but-why)
   - [Where are the actions, Lebowski?](#where-are-the-actions-lebowski)
-- [🧐 Credits](#-credits)
 
 <!-- Added by: finom, at: Wed Mar 24 14:20:20 EET 2021 -->
 
@@ -168,7 +164,7 @@ const App = (): ReactElement => (
 export default App;
 ```
 
-Let's make it a little bit more complex and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's add a few classess that also consist just counts.
+Let's make it a little bit detailed and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's add a few classess that also consist just counts.
 
 ```js
 // ./store.ts
@@ -186,18 +182,24 @@ export class RootStore {
   public readonly storeBranchB = new StoreBranchB();
 }
 
+// export store selectors
+export const STORE_BRANCH_A = ({ storeBranchA }: RootStore) => storeBranchA;
+export const STORE_BRANCH_B = ({ storeBranchB }: RootStore) => storeBranchB;
+
 export default new RootStore();
 ```
+
+At this example we're also exporting so-called "store selectors" which a one-line functions that provide a path to desired object. This makes the code look clean without providing things like `({ users }: RootStore) => users` every time. Instead we define a simple constant, in case of users it's going to be called `USERS` and provided as a first useChange argument: `useChange(USERS, 'something')` (get `store.users.something` property).
 
 ```js
 // ./MyComponent.tsx
 import React, { ReactElement } from 'react'
 import useChange from 'use-change';
-import { RootStore } from './store';
+import { STORE_BRANCH_A, STORE_BRANCH_B } from './store';
 
 const MyComponent = (): ReactElement => {
-  const [countA, setCountA] = useChange(({ storeBranchA }: RootStore) => storeBranchA, 'countA');
-  const [countB, setCountB] = useChange(({ storeBranchB }: RootStore) => storeBranchB, 'countB');
+  const [countA, setCountA] = useChange(STORE_BRANCH_A, 'countA');
+  const [countB, setCountB] = useChange(STORE_BRANCH_B, 'countB');
   
   return (
     <>
@@ -210,8 +212,8 @@ const MyComponent = (): ReactElement => {
 }
 ```
 
-As you can see we've passed `({ storeBranchA }: RootStore) => storeBranchA` as a first argument selecting that piece of store that consists the sought property. There is also a small noteworthy detail. We import `RootStore` class to be used just as a type, but we don't import store itself there thanks to `Provider`. You can import it though just to check how cool the hook is!
-
+As you can see the component doesn't receive store object implicitly, therefore it's not possible to modify it manually. You can try to do that though to see how component reacts on changes of a listened property.
+ 
 ```js
 // ...
 import store, { RootStore } from './store';
@@ -229,7 +231,7 @@ The component is going to be updated every second since it listens to the `store
 
 ## ✔️ Summary
 
-Congrats! You basically passed the tutorial of how to use `use-change` hook! Let's just mention a few last notes:
+Congrats! You basically passed the tutorial of how to use `use-change` hook! Thousand times simpler than Redux or MobX, right? Let's just mention a few last notes:
 
 **The hook supports 3 overloads**
 1. Explicit store use. At this case you pass the store object to `useChange` hook: `useChange<T>(object: T, key: string)`
@@ -237,9 +239,8 @@ Congrats! You basically passed the tutorial of how to use `use-change` hook! Let
 
 **Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow infinite number of times. 
 
-![](./assets/seasons-tree-with-roots-free-vector.jpeg)
 
-As another example let's take a look at a custom store interface.
+Let's take a look at a more abstract example. Just to make it simpler to understand, let's define a small interface instead of classes definition.
 
 ```js
 interface RootStore {
@@ -260,8 +261,8 @@ interface RootStore {
 
 If applicaiton store is implemented by the interface, then:
 
-- `RootStore['me']`, `RootStore['shop']`, `RootStore['shop']['cart']` should not be changed since they're "tree branches". These properties are the **store** that can be returned by store selectors.
-- But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']`  can, since they're "tree leaves" that can be listened by components. These properties are the **state**.
+- `RootStore['me']`, `RootStore['shop']`, `RootStore['shop']['cart']` should not be changed since they're "branches of the state tree". These properties are the **store** that can be returned by store selectors.
+- But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']`  can, since they're "leaves of the state tree" that can be listened by components. These properties are the **state**.
 
 This means that any listenable property need to be overriden by a new value, but never mutated.
 
@@ -337,7 +338,7 @@ const [value, setValue] = useChange((store: RootStore) => store.foo.bar, 'key');
 
 ## 🤖 Secondary API
 
-The library also provides a few helpful hooks and functions that cover additional needs while using `useChange`.
+The library also provides a few helpful hooks and functions that mostly duplicate features of `useChange` but may be useful at real work.
 
 
 ### `useValue`
@@ -548,76 +549,4 @@ const [age, setAge] = useChange(({ persistent }: RootStore) => persistent, 'age'
 // ...
 // the value will be written into localStorage
 setAge(20);
-```
-
-## 🤷 FAQ
-
-### Another React state library? But why?
-
-You'd need that if React, MobX, Apollo Client, etc is too much (too many concepts to follow, too much code to write for simple things) but a custom context provider is not enough.
-
-Is that better than anything else? If you like flexibility, then yes. If you like strict patterns more than "do whatever you want" things, then no. Your choice should be dependent on busines needs and at most of cases you should something strict and well-known.
-
-### Where are the actions, Lebowski?
-
-There is no such thing as "action". Instead of them you can define class methods that modify data and corresponding components that use `useChange` or `useValue` listening that data are going to react accourdingly.
-
-
-```tsx
-...
-const MyComponent = (): ReactElement => {
-  const [count, setCount] = useChange(({ foo }: RootStore) => foo, 'count');
-  ...
-```
-
-```ts
-class Foo {
-  public count = 0;
-
-  // this is the "action" itself
-  doSomething() {
-    // MyComponent listens to the property changes
-    this.count++;
-  }
-}
-
-export class RootStore {
-  foo = new Foo();
-
-  constructor() {
-    // call the "action" (the method) every 1 second
-    setTinterval(() => {
-      this.foo.doSomething();
-    }, 1000);
-  }
-}
-
-export default new RootStore();
-```
-
-You can also call the "action" at component with the help of `useSilent` hook if you don't want to export store object (exporting store itself is not prohibited but also is not recommended).
-
-```tsx
-const MyComponent = (): ReactElement => {
-  const doSomething = useSilent(({ foo }: RootStore) => foo, 'doSomething');
-  
-  return (
-    <Button onClick={() => doSomething()}></Button>
-  );
-}
-```
-
-Plus to that you can get the store using `React.useContext` with use-change `Context`, then call the "action" by accessing it directly. It's recommended to use `useSilent` thought as a safer alternative to avoid direct store modifications within components. 
-
-```tsx
-import React, { useContext } from 'react';
-import { Context as UseChangeContext } from 'use-change';
-import { RootStore } from './store';
-
-const MyComponent = () => {
-  const store = useContext<RootStore>(UseChangeContext);
-  return (
-    <Button onClick={() => store.foo.doSomething()}></Button>
-  );
-}
 ```
