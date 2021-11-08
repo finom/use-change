@@ -2,9 +2,9 @@
 
 [![npm version](https://badge.fury.io/js/use-change.svg)](https://badge.fury.io/js/use-change) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/) [![Build status](https://github.com/finom/use-change/actions/workflows/main.yml/badge.svg)](https://github.com/finom/use-change/actions)
 
-> Application-wide alternative for `React.useState` 
+> The simplest and one of the coolest application-wide state library on the market
 
-Define a skeleton of your data store as a flat or a nested object, and with the help of [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) listen to changes at definite props of the object. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API you may not even need.
+With this hook application state is defined as a nested object and the properties of the object are listened by [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) function. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API in a few additional hooks.
 
 Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed.
 
@@ -81,7 +81,7 @@ store.count = 69; // nice
 
 The example shows how you can use the hook as a local data store for a component but `store` object can be exported and used by other components. This may be an anti-DRY pattern, that's why it's recommended to use `Provider` exported from `use-change`.
 
-## 💡 Quick start using Provider
+## 💡 Quick start using Provider and store as a class
 
 1. Install by `npm i use-change` or `yarn add use-change`.
 2. Define an object of any shape. This is going to be your store.
@@ -89,11 +89,20 @@ The example shows how you can use the hook as a local data store for a component
 4. Add `useChange` to your components.
 
 ```js
+// ./store.ts
+// esport class to be used for type references
+export class RootStore {
+  public count = 0;
+}
+
+export default new RootStore(); // init the store instance
+```
+
+```js
 import React, { ReactElement } from 'react';
 import useChange, { Provider as UseChangeProvider } from 'use-change';
 import MyComponent from './MyComponent';
-
-const store = { count: 0 };
+import store from './store';
 
 const App = (): ReactElement => (
   <UseChangeProvider value={store}>
@@ -108,9 +117,14 @@ export default App;
 // ./MyComponent.tsx
 import React, { ReactElement } from 'react'
 import useChange from 'use-change';
+import { RootStore } from './store';
+
 
 const MyComponent = (): ReactElement => {
-  const [count, setCount] = useChange('count');
+  // the first argument is a path to store object
+  // if store is nested the path could look like 
+  // (store: RootStore) => store.foo.bar where "bar" is an object containing "count"
+  const [count, setCount] = useChange((store: RootStore) => store, 'count');
   
   return (
     <>
@@ -125,7 +139,7 @@ export default MyComponent;
 
 ## 👷 Designing the store
 
-You can use an object literal to define store for simple use, but real world data usually consists more than just a `count`. It's recommended to build your store as a class instance. Shape of the class is 100% custom and it doesn't require to use decorators or wrappers.
+It's recommended to build your store as a class instance. Shape of the class is 100% custom and it doesn't require to use decorators or wrappers.
 
 ```js
 // ./store.ts
@@ -154,7 +168,7 @@ const App = (): ReactElement => (
 export default App;
 ```
 
-Let's make it more complex and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's add a few classess that also consist just counts.
+Let's make it a little bit more complex and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's add a few classess that also consist just counts.
 
 ```js
 // ./store.ts
@@ -166,6 +180,7 @@ class StoreBranchB {
   public bCount = 0;
 }
 
+// those classes can be also initialised at class constructor
 export class RootStore {
   public readonly storeBranchA = new StoreBranchA();
   public readonly storeBranchB = new StoreBranchB();
@@ -173,8 +188,6 @@ export class RootStore {
 
 export default new RootStore();
 ```
-
-Meet the third and the last overload of `useChange` hook, where the first argument of the function is **store selector** and the second, as usually, a property name.
 
 ```js
 // ./MyComponent.tsx
@@ -220,8 +233,7 @@ Congrats! You basically passed the tutorial of how to use `use-change` hook! Let
 
 **The hook supports 3 overloads**
 1. Explicit store use. At this case you pass the store object to `useChange` hook: `useChange<T>(object: T, key: string)`
-2. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in the root of store `useChange<T>(key: string)` 
-3. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in a nested object from the store `useChange<T>(storeSelector: (store: T) => object, key: string)` 
+2. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in a nested object from the store `useChange<T>(storeSelector: (store: T) => object, key: string)` 
 
 **Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow infinite number of times. 
 
@@ -306,20 +318,7 @@ const store: RootStore = { foo: { bar: { key: 'value' } } };
 const [value, setValue] = useChange(store.foo.bar, 'key'); // value is inferred as string
 ```
 
-
-**Implicit root store overload.** This overload doesn't require to provide neither store object nor store selector. Key provided as the only argument.
-
-`useChange<T, K>(key: K & keyof T & string): [value: inferred, setter: (value: inferred) => inferred]`
-
-```js
-const store = { key: 'value' };
-// ...
-const [value, setValue] = useChange<RootStore>('key')
-```
-
-There are noteworthy restrictions of this overload described at [Known TypeScript issues](#known-typescript-issues).
-
-**Implicit store overload with store selector.** The recommended way to use `useChange` if it's used as a core data store library of your app.
+**Implicit store overload.** The recommended way to use `useChange` if it's used as a core data store library of your app.
 
 `useChange<T, K, S>(getStore: (store: T) => S, key: K & keyof S & string): [value: inferred, setter: (value: inferred) => inferred]`
 
@@ -551,57 +550,6 @@ const [age, setAge] = useChange(({ persistent }: RootStore) => persistent, 'age'
 setAge(20);
 ```
 
-## 🐞 Known TypeScript issues
-
-If you know how to fix one of the following TypeScript problems, please make a PR or create an issue with your idea of how it could be fixed.
-
-### Issue 1
-
-Implicit root store overload makes TypeScript unable to detect exact type of a property if 2nd generic parameter isn't given.
-
-```ts
-interface RootStore {
-  isSomething: boolean;
-  count: number;
-}
-
-// ... 
-
-// value type is inferred as "boolean | number" instead of "boolean"
-const [value] = useChange<RootStore>('isSomething');
-```
-![image](https://user-images.githubusercontent.com/1082083/111462099-b0d22080-8726-11eb-9a1d-344f3d0bb974.png)
-
-
-There are two workarounds to fix it. The first is to provide key literal as the second generic parameter:
-
-```ts
-const [value] = useChange<RootStore, 'isSomething'>('isSomething');
-```
-
-![image](https://user-images.githubusercontent.com/1082083/111463261-107cfb80-8728-11eb-944e-b12b6eb96587.png)
-
-If it looks weird to you there is 2nd workaround using implicit store overload with store selector: 
-
-```ts
-const [value] = useChange((store: RootStore) => store, 'isSomething');
-```
-
-That's why this is the most recommended way of `useChange` use.
-
-![image](https://user-images.githubusercontent.com/1082083/111462361-05759b80-8727-11eb-8418-c085e47ca01a.png)
-
-### Issue 2
-
-Typescript error is not informative if a provided key is not a key of store slice.
-
-![image](https://user-images.githubusercontent.com/1082083/111462970-be3bda80-8727-11eb-8de0-3f8705ff1121.png)
-
-But if a correct key is provided, the error will disappear. 
-
-![image](https://user-images.githubusercontent.com/1082083/111463052-d4e23180-8727-11eb-95b9-0e93cdd99e1b.png)
-
-
 ## 🤷 FAQ
 
 ### Another React state library? But why?
@@ -673,7 +621,3 @@ const MyComponent = () => {
   );
 }
 ```
-
-## 🧐 Credits
-
-Seasons Tree Image - <a href="https://www.vecteezy.com/free-vector/nature" target="_blank">Nature Vectors by Vecteezy</a>
