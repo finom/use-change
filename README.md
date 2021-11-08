@@ -6,36 +6,31 @@
 
 With this hook application state is defined as a nested object and the properties of the object are listened by [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) function. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API in a few additional hooks.
 
-Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed.
+Components that include `useChange` listen to only those properties that they actually need but never updates if something else is changed 🏎️.
 
 ## 📋 Table of Contents
 
-
 <!--ts-->
+* [use-change](#-use-change)
+* [Table of Contents](#-table-of-contents)
+* [Quick start](#-quick-start)
+* [Quick start using Provider and store as a class](#-quick-start-using-provider-and-store-as-a-class)
+* [Designing the store](#-designing-the-store)
+* [Summary](#️-summary)
+* [API](#-api)
+    * [useChange](#usechange)
+* [Secondary API](#-secondary-api)
+    * [useValue](#usevalue)
+    * [useSet](#useset)
+    * [useGet](#useget)
+    * [useSilent](#usesilent)
+    * [listenChange](#listenchange)
+    * [unlistenChange](#unlistenchange)
+    * [Context](#context)
+    * [Provider](#provider)
+* [Persistent store](#️-persistent-store)
 
-- [🙌 use-change](#-use-change)
-- [📋 Table of Contents](#-table-of-contents)
-- [☕ Quick start](#-quick-start)
-- [💡 Quick start using Provider](#-quick-start-using-provider)
-- [👷 Designing the store](#-designing-the-store)
-- [✔️ Summary](#️-summary)
-- [🚀 API](#-api)
-  - [`useChange`](#usechange)
-- [🤖 Secondary API](#-secondary-api)
-  - [`useValue`](#usevalue)
-  - [`useSet`](#useset)
-  - [`useGet`](#useget)
-  - [`useSilent`](#usesilent)
-  - [`listenChange`](#listenchange)
-  - [`unlistenChange`](#unlistenchange)
-  - [`Context`](#context)
-  - [`Provider`](#provider)
-- [🏔️ Persistent store](#️-persistent-store)
-- [🤷 FAQ](#-faq)
-  - [Another React state library? But why?](#another-react-state-library-but-why)
-  - [Where are the actions, Lebowski?](#where-are-the-actions-lebowski)
-
-<!-- Added by: finom, at: Wed Mar 24 14:20:20 EET 2021 -->
+<!-- Added by: finom, at: Mon Nov  8 18:56:19 EET 2021 -->
 
 <!--te-->
 
