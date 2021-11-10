@@ -325,7 +325,7 @@ The library also provides a few helpful hooks and functions that mostly duplicat
 
 ### `useValue`
 
-Supports 100% the same overload as `useChange` does and works the same but instead of a `[value, setter]` touple it returns just a `value` (zero-indexed element of the touple). 
+Supports 100% the same overload as `useChange` does and works the same way but instead of a `[value, setter]` touple it returns just a `value` (zero-indexed element of the touple). 
 
 ```ts
 const value = useValue((store: RootStore) => store.foo.bar, 'key');
