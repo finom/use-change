@@ -416,7 +416,7 @@ setTinterval(() => {
 
 ### `unlistenChange`
 
-Allows to remove of previously attatched listener.
+Allows to remove previously attatched listener.
 
 `unlistenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred) => void): void`
 
