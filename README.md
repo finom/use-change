@@ -179,7 +179,7 @@ const MyComponent = (): ReactElement => {
 }
 ```
 
-As you can see the component doesn't modify store object implicitly, therefore it's not possible to change it manually from components. You can try to do that though to see how component reacts on changes of a listened property.
+As you can see the component doesn't modify store object implicitly, therefore it's not possible to change it "manually" from components. You can try to do that though to see how component reacts on changes of a listened property.
  
 ```js
 // ...
