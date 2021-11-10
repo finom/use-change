@@ -4,7 +4,7 @@
 
 > The simplest and one of the coolest application-wide state library on the market
 
-With this hook application state is defined as a nested object and the properties of the object are listened by [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) function. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API in a few additional hooks.
+With this hook application state is defined as a nested object and the properties of the object are listened by [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) function. No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API.
 
 Components that call `useChange` listen to only those properties that they actually need but never updated if something else is changed 🏎️.
 
