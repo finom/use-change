@@ -79,7 +79,7 @@ The example shows how you can use the hook as a local data store for a component
 
 ```js
 // ./store.ts
-// esport class to be used for type references
+// export class to be used for type references
 export class RootStore {
   public count = 0;
 }
