@@ -140,7 +140,7 @@ class StoreBranchB {
   public bCount = 0;
 }
 
-// those classes can be also initialised at class constructor
+// those classes can also be initialised at class constructor
 export class RootStore {
   public readonly storeBranchA = new StoreBranchA();
   public readonly storeBranchB = new StoreBranchB();
@@ -196,7 +196,7 @@ const MyComponent = (): ReactElement => {
 
 The component is going to be updated every second since it listens to the `store.storeBranchA.countA` property changes.
 
-The property can be also manipulated manually inside class methods.
+The property can also be manipulated manually inside class methods.
 
 ```js
 class RootStore {
