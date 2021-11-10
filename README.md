@@ -246,8 +246,8 @@ interface RootStore {
 
 If applicaiton store is implemented by the interface, then:
 
-- `RootStore['me']`, `RootStore['shop']`, `RootStore['shop']['cart']` should not be changed since they're "branches of the state tree". These properties are the **store** that can be returned by store selectors.
-- But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']`  can, since they're "leaves of the state tree" that can be listened by components. These properties are the **state**.
+- `RootStore['me']`, `RootStore['shop']`, `RootStore['shop']['cart']` should not be changed since they're "branches of the tree". These properties are the **store** that can be returned by store selectors.
+- But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']`  can, since they're "leaves of the tree" that can be listened by components. These properties are the **state**.
 
 This means that any listenable property needs to be overriden by a new value, but never mutated.
 
