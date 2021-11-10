@@ -179,7 +179,7 @@ const MyComponent = (): ReactElement => {
 }
 ```
 
-As you can see the component doesn't modify store object implicitly, therefore it's not possible to change it "manually" from components. You can try to do that though to see how component reacts on changes of a listened property.
+As you can see the component doesn't modify store object implicitly, therefore it's not possible to change it "manually" (via assignment operator) from components. You can try to do that though to see how component reacts on changes of a listened property.
  
 ```js
 // ...
@@ -249,7 +249,7 @@ If applicaiton store is implemented by the interface, then:
 - `RootStore['me']`, `RootStore['shop']`, `RootStore['shop']['cart']` should not be changed since they're "branches of the state tree". These properties are the **store** that can be returned by store selectors.
 - But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']`  can, since they're "leaves of the state tree" that can be listened by components. These properties are the **state**.
 
-This means that any listenable property need to be overriden by a new value, but never mutated.
+This means that any listenable property needs to be overriden by a new value, but never mutated.
 
 ```js
 const [cartItems, setCartItems] = useChange(
