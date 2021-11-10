@@ -90,7 +90,7 @@ export default new RootStore(); // init the store instance
 ```js
 // ./App.tsx
 import React, { ReactElement } from 'react';
-import useChange, { Provider as UseChangeProvider } from 'use-change';
+import { Provider as UseChangeProvider } from 'use-change';
 import MyComponent from './MyComponent';
 import store from './store';
 
