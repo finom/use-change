@@ -12,7 +12,7 @@ Components that call `useChange` listen to only those properties that they actua
 
 <!--ts-->
 * [Quick start](#-quick-start)
-* [Quick start using Provider and store as a class](#-quick-start-using-provider-and-store-as-a-class)
+* [Quick start using Provider and store as a class instance](#-quick-start-using-provider-and-store-as-a-class-instance)
 * [Designing the store](#-designing-the-store)
 * [Summary](#️-summary)
 * [API](#-api)
@@ -28,7 +28,7 @@ Components that call `useChange` listen to only those properties that they actua
     * [Provider](#provider)
 * [Persistent store](#️-persistent-store)
 
-<!-- Added by: finom, at: Mon Nov  8 18:56:19 EET 2021 -->
+<!-- Added by: finom, at: Wed Nov 10 12:08:44 EET 2021 -->
 
 <!--te-->
 
