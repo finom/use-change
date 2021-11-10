@@ -14,7 +14,7 @@ execSync('rm -rf ../node_modules', { cwd: __dirname });
 const expect = require('expect.js');
 
 const {
-  default: useChange, useValue, useGet, useSet, useSilent, 
+  default: useChange, useValue, useGet, useSet, useSilent,
   listenChange, unlistenChange, Context, Provider,
 } = require('use-change');
 
