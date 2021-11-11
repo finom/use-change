@@ -8,7 +8,7 @@ With this hook application state is defined as a nested object and the propertie
 
 Components that call `useChange` listen to only those properties that they actually need but never updated if something else is changed 🏎️.
 
-See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/comments/qqsbo3/usechange_the_most_minimalistic_react_state/).
+See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/comments/qqsbo3/usechange_the_most_minimalistic_react_state/) 😅.
 
 ## 📋 Table of Contents
 
