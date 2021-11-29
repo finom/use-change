@@ -4,7 +4,7 @@
 
 > The most minimalistic React state library on the market with [zero dependencies](https://bundlephobia.com/package/use-change)
 
-With this hook application state is defined as a nested object and the properties of the object are listened with [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty). No reducers, actions, observers, middlewares, exported constants. Just one hook and some secondary API that you can ignore.
+With this hook application state is defined as a nested object and the properties of the object are listened with [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty). No reducers, actions, observers, middlewares. Just one hook and some secondary API that you can ignore.
 
 Components that call `useChange` listen to only those properties that they actually need but never updated if something else is changed 🏎️.
 
