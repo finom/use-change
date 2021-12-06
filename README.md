@@ -287,7 +287,7 @@ store.shop.cart.items = [
 
 ### `useChange`
 
-**Explicit store overload.** At this case you provide store object directly. It's useful if you don't want to use `Provider`. Therefore, you can use the hook locally as a one-component store.
+**Explicit store overload.** At this case you provide a store object directly as the first arument. It can be used for cases when you don't want to apply `Provider` and you need a local one-component store. Useful at forms to avoid usage of multiple `React.useState`.
 
 In other cases it's recommended to use overload with store selector.
 
