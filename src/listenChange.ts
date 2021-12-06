@@ -2,7 +2,9 @@ import changeMap from './changeMap';
 import { Handler, Key } from './types';
 
 export default function listenChange<SLICE, KEY>(
-  givenObject: SLICE, key: Key<SLICE, KEY>, handler: Handler<SLICE, KEY>,
+  givenObject: SLICE,
+  key: Key<SLICE, KEY>,
+  handler: Handler<SLICE, KEY>,
 ): () => void {
   const all: Record<string, Handler[]> = changeMap.get(givenObject) ?? {};
 

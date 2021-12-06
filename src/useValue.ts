@@ -18,7 +18,8 @@ function useValue<STORE, KEY, SLICE = STORE>(
   key: Key<SLICE, KEY>,
 ): unknown {
   // "any" is a temporary solution because ovwerloads aren't compatible for some reason
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line max-len
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
   return useChange<STORE, KEY, SLICE>(storeSlice as any, key)[0];
 }
 
