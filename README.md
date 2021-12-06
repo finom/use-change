@@ -2,9 +2,9 @@
 
 [![npm version](https://badge.fury.io/js/use-change.svg)](https://badge.fury.io/js/use-change) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/) [![Build status](https://github.com/finom/use-change/actions/workflows/main.yml/badge.svg)](https://github.com/finom/use-change/actions)
 
-> The most minimalistic React state library on the market with [zero dependencies](https://bundlephobia.com/package/use-change)
+> The most minimalistic React state library on the market with [zero dependencies](https://bundlephobia.com/package/use-change) and `React.useState`-like syntax
 
-With this hook application state is defined as a nested object and the properties of the object are listened with [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty). No reducers, actions, observers, middlewares. Just one hook and some secondary API that you can ignore.
+With this hook application state is defined as a nested object and the properties of the object are listened with [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty). No reducers, actions, observers, middlewares. Just one hook and some secondary API that you can ignore if you don't need it.
 
 Components that call `useChange` listen to only those properties that they actually need but never updated if something else is changed 🏎️.
 
@@ -38,7 +38,7 @@ See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/com
 
 ## ☕ Quick start
 
-1. Install by `npm i use-change` or `yarn add use-change`.
+1. Install the library by `npm i use-change` or `yarn add use-change`.
 2. Define an object of any shape. It's going to be your store.
 3. Add `useChange` to your component.
 
@@ -74,7 +74,7 @@ The example shows how you can use the hook as a local data store for a component
 
 ## 💡 Quick start using Provider and store as a class instance
 
-1. Install by `npm i use-change` or `yarn add use-change`.
+1. Install the library by `npm i use-change` or `yarn add use-change`.
 2. Define an object of any shape. At this case this is a store class instance instead of an in-line object.
 3. Wrap your components by `Provider` exported by `use-change`.
 4. Add `useChange` to your components.
@@ -130,7 +130,7 @@ export default MyComponent;
 
 ## 👷 Designing the store
 
-Let's make it a little bit detailed and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's create a few classess that also consist counts only.
+Let's make it a little bit detailed and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's create a few classess that also consist counts.
 
 ```js
 // ./store.ts
@@ -156,9 +156,11 @@ export const PATH_B = ({ storeBranchB }: RootStore) => storeBranchB;
 export default new RootStore();
 ```
 
-At this example we're also exporting so-called "store selectors". The selectors are one-line arrow functions that provide paths to desired store objects. This makes the code look clean without providing things like `({ users }: RootStore) => users` every time, but instead we define a simple re-usable constant. In case of users the constant is going to be called `USERS` and used as a first `useChange` argument: `useChange(USERS, 'something')` (get `store.users.something` property). It's not required but recommended to make code look much nicer.
+At this example we're also exporting so-called "store selectors". The selectors are one-line arrow functions that provide paths to desired store objects. This makes the code look clean without providing things like `({ users }: RootStore) => users` every time, but instead we define a simple reusable constant. In case of users the constant can be called `USERS` and applied as the first `useChange` argument: `useChange(USERS, 'something')` (get `store.users.something` property). It's not required but recommended to make code look much nicer.
 
 Also take a look at the `ROOT` store selector. It's going to be used to get and modify properties from the store itself like that: `useChange(ROOT, 'count')` to avoid usage of duplicating `(store: RootStore) => store` function.
+
+Don't worry, that's the only kind of constants that are going to be exported.
 
 ```js
 // ./MyComponent.tsx
@@ -181,7 +183,7 @@ const MyComponent = (): ReactElement => {
 }
 ```
 
-As you can see the component doesn't modify store object implicitly, therefore it's not possible to change it "manually" (via assignment operator) from components. You can try to do that though to see how component reacts on changes of a listened property.
+As you can see the component doesn't modify store object implicitly, therefore it's not possible to change it directly (via assignment operator) from components. You can try to do that though to see how component reacts on changes of a listened property.
  
 ```js
 // ...
@@ -222,9 +224,9 @@ Congrats! You basically passed the tutorial of how to use `use-change` hook! Tho
 
 **The hook supports two overloads**
 1. Explicit store use. At this case you pass the store object to `useChange` hook: `useChange<T>(object: T, key: string)`
-2. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in a nested object from the store `useChange<T>(storeSelector: (store: T) => object, key: string)`, where `storeSelector` is a path to a store object as a one-line function.
+2. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in a nested object from the store `useChange<T>(storeSelector: (store: T) => object, key: string)`, where `storeSelector` is a path to a store object as a tiny arrow function.
 
-**Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow infinite number of times. 
+**Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow any number of times. 
 
 
 Let's take a look at a more abstract example. Just to make it simpler to understand, let's define a small interface instead of classes definition.
@@ -322,7 +324,7 @@ const [value, setValue] = useChange((store: RootStore) => store.foo.bar, 'key');
 
 ## 🤖 Secondary API
 
-The library also provides a few helpful hooks and functions that mostly duplicate features of `useChange` but may be useful at real work.
+The library also provides a few helpful hooks and functions that mostly duplicate features of `useChange` but may be useful working on something big.
 
 
 ### `useValue`
