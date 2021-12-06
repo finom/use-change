@@ -13,24 +13,26 @@ See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/com
 ## 📋 Table of Contents
 
 <!--ts-->
-* [Quick start](#-quick-start)
-* [Quick start using Provider and store as a class instance](#-quick-start-using-provider-and-store-as-a-class-instance)
-* [Designing the store](#-designing-the-store)
-* [Summary](#️-summary)
-* [API](#-api)
-    * [useChange](#usechange)
-* [Secondary API](#-secondary-api)
-    * [useValue](#usevalue)
-    * [useSet](#useset)
-    * [useGet](#useget)
-    * [useSilent](#usesilent)
-    * [listenChange](#listenchange)
-    * [unlistenChange](#unlistenchange)
-    * [Context](#context)
-    * [Provider](#provider)
-* [Persistent store](#️-persistent-store)
+      * [use-change](#-use-change)
+      * [Table of Contents](#-table-of-contents)
+      * [Quick start](#-quick-start)
+      * [Quick start using Provider and store as a class instance](#-quick-start-using-provider-and-store-as-a-class-instance)
+      * [Designing the store](#-designing-the-store)
+      * [Summary](#️-summary)
+      * [API](#-api)
+         * [useChange](#usechange)
+         * [Provider](#provider)
+      * [Secondary API](#-secondary-api)
+         * [useValue](#usevalue)
+         * [useSet](#useset)
+         * [useGet](#useget)
+         * [useSilent](#usesilent)
+         * [listenChange](#listenchange)
+         * [unlistenChange](#unlistenchange)
+         * [Context](#context)
+      * [Persistent store](#️-persistent-store)
 
-<!-- Added by: finom, at: Wed Nov 10 12:08:44 EET 2021 -->
+<!-- Added by: finom, at: Mon Dec  6 22:28:10 EET 2021 -->
 
 <!--te-->
 
@@ -322,6 +324,26 @@ const store: RootStore = { foo: { bar: { key: 'value' } } };
 const [value, setValue] = useChange((store: RootStore) => store.foo.bar, 'key'); // value is inferred as string
 ```
 
+### `Provider`
+
+The use-change context provider.
+
+```js
+import React, { ReactElement } from 'react';
+import { Provider as UseChangeProvider } from 'use-change';
+import MyComponent from './MyComponent';
+
+const store = { count: 0 };
+
+const App = (): ReactElement => (
+  <UseChangeProvider value={store}>
+    <MyComponent />
+  </UseChangeProvider>
+)
+
+export default App;
+```
+
 ## 🤖 Secondary API
 
 The library also provides a few helpful hooks and functions that mostly duplicate features of `useChange` but may be useful working on something big.
@@ -439,7 +461,7 @@ unlistenChange(store, 'count', handler);
 
 ### `Context`
 
-React context used for the store provider. You can use `Context` with `React.useContext` to receive store object without importing it.
+React context used for the store provider. You can use `Context` with `React.useContext` to receive store object without importing it. `Context.Provider` equals to the `Provider` documented above.
 
 ```ts
 import React, { useContext } from 'react';
@@ -450,26 +472,6 @@ const MyComponent = () => {
   const store = useContext<RootStore>(UseChangeContext);
   // ...
 }
-```
-
-### `Provider`
-
-The context provider. It equals to `Context.Provider`.
-
-```js
-import React, { ReactElement } from 'react';
-import { Provider as UseChangeProvider } from 'use-change';
-import MyComponent from './MyComponent';
-
-const store = { count: 0 };
-
-const App = (): ReactElement => (
-  <UseChangeProvider value={store}>
-    <MyComponent />
-  </UseChangeProvider>
-)
-
-export default App;
 ```
 
 ## 🏔️ Persistent store
