@@ -6,7 +6,7 @@
 
 With this hook application state is defined as a nested object and the properties of the object are listened with [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty). No reducers, actions, observers, middlewares. Just one hook and some secondary API that you can ignore if you don't need it.
 
-Components that call `useChange` listen to only those properties that they actually need but never updated if something else is changed 🏎️.
+Components that call `useChange` listen to only those properties that they actually need but never update if something else gets changed 🏎️.
 
 See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/comments/qqsbo3/usechange_the_most_minimalistic_react_state/) 😅.
 
@@ -62,7 +62,7 @@ const MyComponent = (): ReactElement => {
 export default MyComponent;
 ```
 
-`store.count` is updated using `setCount` function from the touple returned by `useChange` (just like using `React.useState`). It can also be updated just by direct modification of `count` property:
+`store.count` is updated using `setCount` function from the tuple returned by `useChange` (just like using `React.useState`). It can also be updated just by direct modification of `count` property:
 
 ```js
 // ...
@@ -130,7 +130,7 @@ export default MyComponent;
 
 ## 👷 Designing the store
 
-Let's make it a little bit detailed and add a few classess that may be responsible for different aspects of data. Those classes may consist user info, fetched data, persistent data or anything else that you want to keep at its own place. But for siplicity let's create a few classess that also consist counts.
+Let's make it a little bit detailed and add a few classess that may be responsible for different aspects of data. Those classes may consist of user info, fetched data, persistent data or anything else that you want to keep at its own place. But for simplicity let's create a few classess that also consist of counts.
 
 ```js
 // ./store.ts
@@ -156,7 +156,7 @@ export const PATH_B = ({ storeBranchB }: RootStore) => storeBranchB;
 export default new RootStore();
 ```
 
-At this example we're also exporting so-called "store selectors". The selectors are one-line arrow functions that provide paths to desired store objects. This makes the code look clean without providing things like `({ users }: RootStore) => users` every time, but instead we define a simple reusable constant. In case of users the constant can be called `USERS` and applied as the first `useChange` argument: `useChange(USERS, 'something')` (get `store.users.something` property). It's not required but recommended to make code look much nicer.
+At this example we're also exporting so-called "store selectors". The selectors are one-line arrow functions that provide paths to desired store objects. This makes the code look clean without providing things like `({ users }: RootStore) => users` every time, but instead we define a simple reusable constant. In case of users the constant can be called `USERS` and applied as the first `useChange` argument: `useChange(USERS, 'something')` (get `store.users.something` property). It's not required but recommended in order to make code look much nicer.
 
 Also take a look at the `ROOT` store selector. It's going to be used to get and modify properties from the store itself like that: `useChange(ROOT, 'count')` to avoid usage of duplicating `(store: RootStore) => store` function.
 
@@ -248,12 +248,12 @@ interface RootStore {
 }
 ```
 
-If applicaiton store is implemented by the interface, then:
+If application store is implemented by the interface, then:
 
 - `RootStore['me']`, `RootStore['shop']`, `RootStore['shop']['cart']` should not be changed since they're "branches of the tree". These properties are the **store** that can be returned by store selectors.
 - But `RootStore['me']['isAuthenticated']`, `RootStore['me']['name']`, `RootStore['shop']['cart']['items']`, `RootStore['shop']['deliveryAddress']`  can, since they're "leaves of the tree" that can be listened by components. These properties are the **state**.
 
-This means that any listenable property needs to be overriden by a new value, but never mutated.
+This means that any listenable property needs to be overridden by a new value, but never mutated.
 
 ```js
 const [cartItems, setCartItems] = useChange(
@@ -285,7 +285,7 @@ store.shop.cart.items = [
 
 ### `useChange`
 
-**Explicit store overload.** At this case you provide a store object directly as the first arument. It can be used for cases when you don't want to apply `Provider` and you need a local one-component store. Useful at forms to avoid usage of multiple `React.useState`.
+**Explicit store overload.** At this case you provide a store object directly as the first argument. It can be used for cases when you don't want to apply `Provider` and you need a local one-component store. Useful at forms to avoid usage of multiple `React.useState`.
 
 In other cases it's recommended to use overload with store selector.
 
@@ -349,7 +349,7 @@ The library also provides a few helpful hooks and functions that mostly duplicat
 
 ### `useValue`
 
-Supports 100% the same overload as `useChange` does and works the same way but instead of a `[value, setter]` touple it returns just a `value` (zero-indexed element of the touple). 
+Supports 100% the same overload as `useChange` does and works the same way but instead of a `[value, setter]` tuple it returns just a `value` (zero-indexed element of the tuple). 
 
 ```ts
 const value = useValue((store: RootStore) => store.foo.bar, 'key');
@@ -363,7 +363,7 @@ const value = useChange((store: RootStore) => store.foo.bar, 'key')[0];
 
 ### `useSet`
 
-Supports 100% the same overload as `useChange` does but instead of a `[value, setter]` touple it returns just a `setter` (element of index 1 of the touple). The hook **doesn't trigger component re-render** when property value is changed.
+Supports 100% the same overload as `useChange` does but instead of a `[value, setter]` tuple it returns just a `setter` (element of index 1 of the tuple). The hook **doesn't trigger component re-render** when property value is changed.
 
 ```ts
 const setBarKey = useSet((store: RootStore) => store.foo.bar, 'key');
@@ -395,7 +395,7 @@ Supports 100% the same overload as `useChange` does but returns `value` and **do
 const value = useSilent((store: RootStore) => store.foo.bar, 'key');
 ```
 
-It's used for cases if you want to get something unchengeable. A good example is store methods: they don't need to get their property descriptor to be modified.
+It's used for cases if you want to get something unchangeable. A good example is store methods: they don't need to get their property descriptor to be modified.
 
 ```js
 // ./store.ts
@@ -422,7 +422,7 @@ incrementCount();
 
 ### `listenChange`
 
-Allows to listen to object property changes outside of components. The store object argument should be given explicidly since `Provider` doesn't work here anymore. The method returns a funciton that unsubscribes from a given event.
+Allows to listen to object property changes outside of components. The store object argument should be given explicitly since `Provider` doesn't work here anymore. The method returns a function that unsubscribes from a given event.
 
 `listenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred, previousValue: inferred) => void): () => void`
 
@@ -431,7 +431,7 @@ const store = { count: 0; };
 
 const unlisten = listenChange(store, 'count', (count) => console.log('the count is: ', count));
 
-setTinterval(() => {
+setInterval(() => {
   store.count++;
 }, 1000);
 ```
@@ -440,7 +440,7 @@ setTinterval(() => {
 
 ### `unlistenChange`
 
-Removes previously attatched listener.
+Removes previously attached listener.
 
 `unlistenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred) => void): void`
 
@@ -474,7 +474,7 @@ const MyComponent = () => {
 
 ## 🏔️ Persistent store
 
-There is no built-in feature to store data persistently but the elegancy of use-change design makes possible to create such thing easily.
+There is no built-in feature to store data persistently but the elegancy of use-change design makes possible to create such things easily.
 
 ```js
 // ./PersistentStore.ts
