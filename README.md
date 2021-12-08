@@ -13,8 +13,6 @@ See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/com
 ## 📋 Table of Contents
 
 <!--ts-->
-* [use-change](#-use-change)
-* [Table of Contents](#-table-of-contents)
 * [Quick start](#-quick-start)
 * [Quick start using Provider and store as a class instance](#-quick-start-using-provider-and-store-as-a-class-instance)
 * [Designing the store](#-designing-the-store)
