@@ -3,19 +3,19 @@ import {
   ReturnTuple, Selector, SliceRecord, Key,
 } from './types';
 
-function useSilent<STORE, KEY, SLICE = STORE>(
+function useSilent<STORE, SLICE = STORE>(
   storeSlice: SliceRecord<SLICE>,
-  key: Key<SLICE, KEY>,
+  key: Key<SLICE>
 ): ReturnTuple<SLICE, typeof key>[0];
 
-function useSilent<STORE, KEY, SLICE = STORE>(
+function useSilent<STORE, SLICE = STORE>(
   storeSlice: Selector<STORE, SLICE>,
-  key: Key<SLICE, KEY>,
+  key: Key<SLICE>
 ): ReturnTuple<SLICE, typeof key>[0];
 
-function useSilent<STORE, KEY, SLICE = STORE>(
+function useSilent<STORE, SLICE = STORE>(
   storeSlice: Selector<STORE, SLICE> | SliceRecord<SLICE>,
-  key: Key<SLICE, KEY>,
+  key: Key<SLICE>,
 ): unknown {
   const slice = getSlice(storeSlice);
 

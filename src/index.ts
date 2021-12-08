@@ -7,10 +7,19 @@ import listenChange from './listenChange';
 import unlistenChange from './unlistenChange';
 import Context from './Context';
 
+export * from './types';
+
 const { Provider } = Context;
 
 export default useChange;
 
 export {
-  useValue, useGet, useSet, useSilent, listenChange, unlistenChange, Context, Provider,
+  useValue,
+  useGet,
+  useSet,
+  useSilent,
+  listenChange,
+  unlistenChange,
+  Context,
+  Provider,
 };

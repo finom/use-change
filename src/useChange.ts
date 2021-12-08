@@ -5,28 +5,22 @@ import {
   Key, ReturnTuple, Selector, SliceRecord,
 } from './types';
 
-function useChange<STORE, KEY, SLICE = STORE>(
-  storeSlice: SliceRecord<SLICE>,
-  key: Key<SLICE, KEY>,
-): ReturnTuple<SLICE, typeof key>;
-
-function useChange<STORE, KEY, SLICE = STORE>(
-  storeSlice: Selector<STORE, SLICE>,
-  key: Key<SLICE, KEY>,
-): ReturnTuple<SLICE, typeof key>;
-
-function useChange<STORE, KEY, SLICE = STORE>(
+function useChange<STORE, SLICE = STORE>(
   storeSlice: Selector<STORE, SLICE> | SliceRecord<SLICE>,
-  key: Key<SLICE, KEY>,
-): unknown {
+  key: Key<SLICE>,
+): ReturnTuple<SLICE, typeof key> {
   const slice = getSlice(storeSlice);
 
   const [stateValue, setStateValue] = useState(slice[key]);
 
   const setValue = useCallback(
-    (value: SLICE[typeof key] | ((v: SLICE[typeof key]) => SLICE[typeof key])) => {
+    (
+      value: SLICE[typeof key] | ((v: SLICE[typeof key]) => SLICE[typeof key]),
+    ) => {
       if (typeof value === 'function') {
-        const valueFunction = value as (v: SLICE[typeof key]) => SLICE[typeof key];
+        const valueFunction = value as (
+          v: SLICE[typeof key]
+        ) => SLICE[typeof key];
         slice[key] = valueFunction(slice[key]);
       } else {
         slice[key] = value;
