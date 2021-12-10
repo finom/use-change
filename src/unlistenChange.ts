@@ -1,15 +1,15 @@
 import changeMap from './changeMap';
-import { Handler, Key } from './types';
+import { Handler } from './types';
 
-export default function unlistenChange<SLICE>(
-  object: SLICE,
-  key: Key<SLICE>,
-  handler: Handler,
+export default function unlistenChange<Slice, Key extends keyof Slice>(
+  object: Slice,
+  key: Key,
+  handler: Handler<Slice[Key]>,
 ): void {
-  const all: Record<Key<SLICE>, Handler[]> | undefined = changeMap.get(object);
+  const all: Record<Key, Handler<Slice[Key]>[]> | undefined = changeMap.get(object);
 
   if (!all) return;
-  const handlers: Handler[] = all[key];
+  const handlers: Handler<Slice[Key]>[] = all[key];
 
   if (!handlers) return;
 

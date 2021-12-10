@@ -1,30 +1,27 @@
 import changeMap from './changeMap';
-import { Handler, Key } from './types';
+import { Handler } from './types';
 
-export default function listenChange<SLICE>(
-  givenObject: SLICE,
-  key: Key<SLICE>,
-  handler: Handler<SLICE>,
+export default function listenChange<Slice, Key extends keyof Slice>(
+  givenObject: Slice,
+  key: Key,
+  handler: Handler<Slice[Key]>,
 ): () => void {
-  const all: Record<Key<SLICE>, Handler[]> = changeMap.get(givenObject) ?? {};
+  const all: Record<Key, Handler<Slice[Key]>[]> = changeMap.get(givenObject) ?? {};
 
   if (!Object.getOwnPropertyDescriptor(givenObject, key)?.get) {
-    const object = givenObject as unknown as {
-      [key in Key<SLICE>]: unknown;
-    };
+    let value = givenObject[key];
 
-    let value = object[key];
-
-    Object.defineProperty(object, key, {
+    Object.defineProperty(givenObject, key, {
       configurable: false,
       get: () => value,
-      set: (v: unknown) => {
-        if (object[key] !== v) {
-          const prev = object[key];
-          value = v;
+      set: (newValue: Slice[Key]) => {
+        const prevValue = givenObject[key];
+
+        if (prevValue !== newValue) {
+          value = newValue;
 
           all[key]?.forEach((h) => {
-            h(v, prev);
+            h(newValue, prevValue);
           });
         }
       },

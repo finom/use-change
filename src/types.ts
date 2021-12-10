@@ -1,16 +1,15 @@
-export type SliceRecord<SLICE> = SLICE & Partial<Record<keyof SLICE, unknown>>;
+export type SliceRecord<Slice> = Slice & Partial<Record<keyof Slice, unknown>>;
 
-export type Key<SLICE> = keyof SLICE;
-
-export type ReturnTuple<SLICE, KEY extends keyof SLICE> = [
-  SLICE[KEY],
-  (value: SLICE[KEY] | ((value: SLICE[KEY]) => SLICE[KEY])) => void,
+export type ReturnTuple<ValueType> = [
+  ValueType,
+  (value: ValueType | ((value: ValueType) => ValueType)) => void,
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Handler<SLICE = any> = (
-  value: SLICE[Key<SLICE>],
-  prev: SLICE[Key<SLICE>]
+export type StoreSlice<Store, Slice> = Selector<Store, Slice> | SliceRecord<Slice>;
+
+export type Handler<ValueType> = (
+  value: ValueType,
+  prev: ValueType
 ) => any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-export type Selector<STORE, SLICE> = (store: STORE) => SliceRecord<SLICE>;
+export type Selector<Store, Slice> = (store: Store) => SliceRecord<Slice>;
