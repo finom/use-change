@@ -100,4 +100,55 @@ describe('useChange', () => {
     expect(store.x.y.z).toBe(3);
     expect(renderedTimes).toBe(3);
   });
+
+  it('Supports numbers as keys', () => {
+    const store: { 0: number } = { 0: 1 };
+    const wrapper = getWrapper(store);
+
+    let renderedTimes = 0;
+
+    const { result } = renderHook(() => {
+      renderedTimes += 1;
+      return useChange(store, 0);
+    }, { wrapper });
+
+    expect(result.current[VALUE]).toBe(1);
+    expect(renderedTimes).toBe(1);
+
+    act(() => { result.current[SET](2); });
+
+    expect(result.current[VALUE]).toBe(2);
+    expect(renderedTimes).toBe(2);
+
+    act(() => { result.current[SET](2); });
+
+    expect(result.current[VALUE]).toBe(2);
+    expect(renderedTimes).toBe(2);
+  });
+
+  it('Supports symbols as keys', () => {
+    const symbol = Symbol('foo');
+    const store: { [symbol]: number } = { [symbol]: 1 };
+    const wrapper = getWrapper(store);
+
+    let renderedTimes = 0;
+
+    const { result } = renderHook(() => {
+      renderedTimes += 1;
+      return useChange(store, symbol);
+    }, { wrapper });
+
+    expect(result.current[VALUE]).toBe(1);
+    expect(renderedTimes).toBe(1);
+
+    act(() => { result.current[SET](2); });
+
+    expect(result.current[VALUE]).toBe(2);
+    expect(renderedTimes).toBe(2);
+
+    act(() => { result.current[SET](2); });
+
+    expect(result.current[VALUE]).toBe(2);
+    expect(renderedTimes).toBe(2);
+  });
 });
