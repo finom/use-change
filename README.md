@@ -1,8 +1,6 @@
 ## use-change 🙌
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 [![npm version](https://badge.fury.io/js/use-change.svg)](https://badge.fury.io/js/use-change) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/) [![Build status](https://github.com/finom/use-change/actions/workflows/main.yml/badge.svg)](https://github.com/finom/use-change/actions)
 
 > The most minimalistic React state management library on the market with [zero dependencies](https://bundlephobia.com/package/use-change) and `React.useState`-like syntax
@@ -16,8 +14,6 @@ See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/com
 ## 📋 Table of Contents
 
 <!--ts-->
-* [use-change <g-emoji class="g-emoji" alias="raised_hands" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f64c.png">🙌</g-emoji>](#use-change-)
-* [Table of Contents](#-table-of-contents)
 * [Quick start <g-emoji class="g-emoji" alias="coffee" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2615.png">☕</g-emoji>](#quick-start-)
 * [Quick start using Provider and store as a class instance <g-emoji class="g-emoji" alias="bulb" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png">💡</g-emoji>](#quick-start-using-provider-and-store-as-a-class-instance-)
 * [Designing the store <g-emoji class="g-emoji" alias="construction_worker" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f477.png">👷</g-emoji>](#designing-the-store-)
