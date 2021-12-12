@@ -1,4 +1,4 @@
-## 🙌 use-change
+## use-change 🙌
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -39,7 +39,7 @@ See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/com
 
 ![image](./assets/use-change.png)
 
-## ☕ Quick start
+## Quick start ☕
 
 1. Install the library by `npm i use-change` or `yarn add use-change`.
 2. Define an object of any shape. It's going to be your store.
@@ -75,7 +75,7 @@ store.count = 69; // nice
 
 The example shows how you can use the hook as a local data store for a component but `store` object can be exported and used by other components. This may be an anti-DRY pattern, that's why it's recommended to use `Provider` exported from `use-change`.
 
-## 💡 Quick start using Provider and store as a class instance
+## Quick start using Provider and store as a class instance 💡
 
 1. Install the library by `npm i use-change` or `yarn add use-change`.
 2. Define an object of any shape. At this case this is a store class instance instead of an in-line object.
@@ -131,7 +131,7 @@ const MyComponent = (): ReactElement => {
 export default MyComponent;
 ```
 
-## 👷 Designing the store
+## Designing the store 👷
 
 Let's make it a little bit detailed and add a few classess that may be responsible for different aspects of data. Those classes may consist of user info, fetched data, persistent data or anything else that you want to keep at its own place. But for simplicity let's create a few classess that also consist of counts.
 
@@ -221,7 +221,7 @@ class RootStore {
 }
 ```
 
-## ✔️ Summary
+## Summary ✔️
 
 Congrats! You basically passed the tutorial of how to use `use-change` hook! Thousand times simpler than Redux or MobX, right? Let's just mention a few last notes:
 
@@ -284,7 +284,7 @@ store.shop.cart.items = [
 ```
 
 
-## 🚀 API
+## API 🚀
 
 ### `useChange`
 
@@ -345,7 +345,7 @@ const App = (): ReactElement => (
 export default App;
 ```
 
-## 🤖 Secondary API
+## Secondary API 💪
 
 The library also provides a few helpful hooks and functions that mostly duplicate features of `useChange` but may be useful working on something big.
 
@@ -475,7 +475,7 @@ const MyComponent = () => {
 }
 ```
 
-## 🏔️ Persistent store
+## Persistent store 🏔️
 
 There is no built-in feature to store data persistently but the elegancy of use-change design makes possible to create such things easily.
 
