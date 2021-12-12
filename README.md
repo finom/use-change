@@ -289,7 +289,7 @@ store.shop.cart.items = [
 
 In other cases it's recommended to use overload with store selector.
 
-`useChange<T, K>(object: T, key: K & keyof T & string) => [value: inferred, setter: (value: inferred) => inferred]`
+`useChange<T, K>(object: T, key: K & keyof T) => [value: inferred, setter: (value: inferred) => inferred]`
 
 ```js
 interface RootStore {
@@ -307,7 +307,7 @@ const [value, setValue] = useChange(store.foo.bar, 'key'); // value is inferred 
 
 **Implicit store overload.** The recommended way to use `useChange` if it's used as a core data store library of an app you work on.
 
-`useChange<T, K, S>(getStore: (store: T) => S, key: K & keyof S & string): [value: inferred, setter: (value: inferred) => inferred]`
+`useChange<T, K, S>(getStore: (store: T) => S, key: K & keyof S): [value: inferred, setter: (value: inferred) => inferred]`
 
 ```js
 interface RootStore {
@@ -424,7 +424,7 @@ incrementCount();
 
 Allows to listen to object property changes outside of components. The store object argument should be given explicitly since `Provider` doesn't work here anymore. The method returns a function that unsubscribes from a given event.
 
-`listenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred, previousValue: inferred) => void): () => void`
+`listenChange<T, K>(store: T, key: K & keyof T, listener: (value: inferred, previousValue: inferred) => void): () => void`
 
 ```ts
 const store = { count: 0; };
@@ -442,7 +442,7 @@ setInterval(() => {
 
 Removes previously attached listener.
 
-`unlistenChange<T, K>(store: T, key: K & keyof T & string, listener: (value: inferred) => void): void`
+`unlistenChange<T, K>(store: T, key: K & keyof T, listener: (value: inferred) => void): void`
 
 ```ts
 const store = { count: 0; };
