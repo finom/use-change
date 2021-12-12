@@ -16,14 +16,16 @@ See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/com
 ## 📋 Table of Contents
 
 <!--ts-->
-* [Quick start](#-quick-start)
-* [Quick start using Provider and store as a class instance](#-quick-start-using-provider-and-store-as-a-class-instance)
-* [Designing the store](#-designing-the-store)
-* [Summary](#️-summary)
-* [API](#-api)
+* [use-change <g-emoji class="g-emoji" alias="raised_hands" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f64c.png">🙌</g-emoji>](#use-change-)
+* [Table of Contents](#-table-of-contents)
+* [Quick start <g-emoji class="g-emoji" alias="coffee" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2615.png">☕</g-emoji>](#quick-start-)
+* [Quick start using Provider and store as a class instance <g-emoji class="g-emoji" alias="bulb" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png">💡</g-emoji>](#quick-start-using-provider-and-store-as-a-class-instance-)
+* [Designing the store <g-emoji class="g-emoji" alias="construction_worker" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f477.png">👷</g-emoji>](#designing-the-store-)
+* [Summary <g-emoji class="g-emoji" alias="student" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9d1-1f393.png">🧑‍🎓</g-emoji>](#summary-)
+* [API <g-emoji class="g-emoji" alias="rocket" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f680.png">🚀</g-emoji>](#api-)
     * [useChange](#usechange)
     * [Provider](#provider)
-* [Secondary API](#-secondary-api)
+* [Secondary API <g-emoji class="g-emoji" alias="muscle" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4aa.png">💪</g-emoji>](#secondary-api-)
     * [useValue](#usevalue)
     * [useSet](#useset)
     * [useGet](#useget)
@@ -31,9 +33,10 @@ See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/com
     * [listenChange](#listenchange)
     * [unlistenChange](#unlistenchange)
     * [Context](#context)
-* [Persistent store](#️-persistent-store)
+* [Persistent store <g-emoji class="g-emoji" alias="mountain_snow" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3d4.png">🏔️</g-emoji>](#persistent-store-️)
+* [Contributors <g-emoji class="g-emoji" alias="sparkles" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png">✨</g-emoji>](#contributors-)
 
-<!-- Added by: finom, at: Mon Dec  6 22:28:10 EET 2021 -->
+<!-- Added by: finom, at: Sun Dec 12 21:08:36 EET 2021 -->
 
 <!--te-->
 
@@ -221,7 +224,7 @@ class RootStore {
 }
 ```
 
-## Summary ✔️
+## Summary 🧑‍🎓
 
 Congrats! You basically passed the tutorial of how to use `use-change` hook! Thousand times simpler than Redux or MobX, right? Let's just mention a few last notes:
 
