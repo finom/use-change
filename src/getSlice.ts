@@ -2,12 +2,12 @@ import { useContext, Context } from 'react';
 import UseChangeContext from './Context';
 import { SliceRecord, StoreSlice } from './types';
 
-export default function getSlice<Store, Slice = Store>(
-  storeSlice: StoreSlice<Store, Slice>,
-): Slice {
+export default function getSlice<STORE, SLICE = STORE>(
+  storeSlice: StoreSlice<STORE, SLICE>,
+): SLICE {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const store = useContext(UseChangeContext as Context<Store>);
-  let slice: SliceRecord<Slice>;
+  const store = useContext(UseChangeContext as Context<STORE>);
+  let slice: SliceRecord<SLICE>;
 
   if (typeof storeSlice === 'object') {
     slice = storeSlice;

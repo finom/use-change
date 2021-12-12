@@ -4,10 +4,10 @@ import {
   ReturnTuple, StoreSlice,
 } from './types';
 
-function useGet<Store, Key extends keyof Slice, Slice = Store>(
-  storeSlice: StoreSlice<Store, Slice>,
-  key: Key,
-): () => ReturnTuple<Slice[Key]>[0] {
+function useGet<STORE, KEY extends keyof SLICE, SLICE = STORE>(
+  storeSlice: StoreSlice<STORE, SLICE>,
+  key: KEY,
+): () => ReturnTuple<SLICE[KEY]>[0] {
   const slice = getSlice(storeSlice);
 
   return useCallback(() => slice[key], [slice, key]);

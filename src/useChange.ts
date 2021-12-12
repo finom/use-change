@@ -5,22 +5,22 @@ import {
   ReturnTuple, StoreSlice,
 } from './types';
 
-function useChange<Store, Key extends keyof Slice, Slice = Store>(
-  storeSlice: StoreSlice<Store, Slice>,
-  key: Key,
-): ReturnTuple<Slice[Key]> {
+function useChange<STORE, KEY extends keyof SLICE, SLICE = STORE>(
+  storeSlice: StoreSlice<STORE, SLICE>,
+  key: KEY,
+): ReturnTuple<SLICE[KEY]> {
   const slice = getSlice(storeSlice);
 
   const [stateValue, setStateValue] = useState(slice[key]);
 
   const setValue = useCallback(
     (
-      value: Slice[typeof key] | ((v: Slice[typeof key]) => Slice[typeof key]),
+      value: SLICE[typeof key] | ((v: SLICE[typeof key]) => SLICE[typeof key]),
     ) => {
       if (typeof value === 'function') {
         const valueFunction = value as (
-          v: Slice[typeof key]
-        ) => Slice[typeof key];
+          v: SLICE[typeof key]
+        ) => SLICE[typeof key];
         slice[key] = valueFunction(slice[key]);
       } else {
         slice[key] = value;

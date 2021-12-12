@@ -1,15 +1,15 @@
-export type SliceRecord<Slice> = Slice & Partial<Record<keyof Slice, unknown>>;
+export type SliceRecord<SLICE> = SLICE & Partial<Record<keyof SLICE, unknown>>;
 
-export type ReturnTuple<ValueType> = [
-  ValueType,
-  (value: ValueType | ((value: ValueType) => ValueType)) => void,
+export type ReturnTuple<VALUE> = [
+  VALUE,
+  (value: VALUE | ((value: VALUE) => VALUE)) => void,
 ];
 
-export type StoreSlice<Store, Slice> = Selector<Store, Slice> | SliceRecord<Slice>;
+export type StoreSlice<STORE, SLICE> = Selector<STORE, SLICE> | SliceRecord<SLICE>;
 
-export type Handler<ValueType> = (
-  value: ValueType,
-  prev: ValueType
+export type Handler<VALUE> = (
+  value: VALUE,
+  prev: VALUE
 ) => any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-export type Selector<Store, Slice> = (store: Store) => SliceRecord<Slice>;
+export type Selector<STORE, SLICE> = (store: STORE) => SliceRecord<SLICE>;
