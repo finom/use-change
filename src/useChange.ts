@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import listenChange from './listenChange';
-import getSlice from './getSlice';
+import useStoreSlice from './useStoreSlice';
 import {
   ReturnTuple, StoreSlice,
 } from './types';
@@ -9,7 +9,7 @@ function useChange<STORE, KEY extends keyof SLICE, SLICE = STORE>(
   storeSlice: StoreSlice<STORE, SLICE>,
   key: KEY,
 ): ReturnTuple<SLICE[KEY]> {
-  const slice = getSlice(storeSlice);
+  const slice = useStoreSlice(storeSlice);
 
   const [stateValue, setStateValue] = useState(slice[key]);
 
