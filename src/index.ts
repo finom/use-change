@@ -12,5 +12,12 @@ const { Provider } = Context;
 export default useChange;
 
 export {
-  useValue, useGet, useSet, useSilent, listenChange, unlistenChange, Context, Provider,
+  useValue,
+  useGet,
+  useSet,
+  useSilent,
+  listenChange,
+  unlistenChange,
+  Context,
+  Provider,
 };

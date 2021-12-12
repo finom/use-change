@@ -1,28 +1,28 @@
 import changeMap from './changeMap';
-import { Handler, Key } from './types';
+import { Handler } from './types';
 
-export default function listenChange<SLICE, KEY>(
+export default function listenChange<SLICE, KEY extends keyof SLICE>(
   givenObject: SLICE,
-  key: Key<SLICE, KEY>,
-  handler: Handler<SLICE, KEY>,
+  key: KEY,
+  handler: Handler<SLICE[KEY]>,
 ): () => void {
-  const all: Record<string, Handler[]> = changeMap.get(givenObject) ?? {};
+  const all: Record<KEY, Handler<SLICE[KEY]>[]> = changeMap.get(givenObject) ?? {};
 
   if (!Object.getOwnPropertyDescriptor(givenObject, key)?.get) {
-    const sym = Symbol.for(key);
-    const object = givenObject as unknown as { [key in string | number | typeof sym]: unknown; };
+    let value = givenObject[key];
 
-    object[sym] = object[key];
-
-    Object.defineProperty(object, key, {
+    Object.defineProperty(givenObject, key, {
       configurable: false,
-      get: () => object[sym],
-      set: (v: unknown) => {
-        if (object[sym] !== v) {
-          const prev = object[sym];
-          object[sym] = v;
+      get: () => value,
+      set: (newValue: SLICE[KEY]) => {
+        const prevValue = givenObject[key];
 
-          all[key]?.forEach((h) => { h(v, prev); });
+        if (prevValue !== newValue) {
+          value = newValue;
+
+          all[key]?.forEach((h) => {
+            h(newValue, prevValue);
+          });
         }
       },
     });

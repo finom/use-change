@@ -1,23 +1,13 @@
 import { useCallback } from 'react';
 import getSlice from './getSlice';
 import {
-  ReturnTuple, Selector, SliceRecord, Key,
+  ReturnTuple, StoreSlice,
 } from './types';
 
-function useGet<STORE, KEY, SLICE = STORE>(
-  storeSlice: SliceRecord<SLICE>,
-  key: Key<SLICE, KEY>,
-): () => ReturnTuple<SLICE, typeof key>[0];
-
-function useGet<STORE, KEY, SLICE = STORE>(
-  storeSlice: Selector<STORE, SLICE>,
-  key: Key<SLICE, KEY>,
-): () => ReturnTuple<SLICE, typeof key>[0];
-
-function useGet<STORE, KEY, SLICE = STORE>(
-  storeSlice: Selector<STORE, SLICE> | SliceRecord<SLICE>,
-  key: Key<SLICE, KEY>,
-): unknown {
+function useGet<STORE, KEY extends keyof SLICE, SLICE = STORE>(
+  storeSlice: StoreSlice<STORE, SLICE>,
+  key: KEY,
+): () => ReturnTuple<SLICE[KEY]>[0] {
   const slice = getSlice(storeSlice);
 
   return useCallback(() => slice[key], [slice, key]);

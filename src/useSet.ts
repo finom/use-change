@@ -1,29 +1,23 @@
 import { useCallback } from 'react';
 import getSlice from './getSlice';
 import {
-  ReturnTuple, Selector, SliceRecord, Key,
+  ReturnTuple, Selector, SliceRecord,
 } from './types';
 
-function useSet<STORE, KEY, SLICE = STORE>(
-  storeSlice: SliceRecord<SLICE>,
-  key: Key<SLICE, KEY>,
-): ReturnTuple<SLICE, typeof key>[1];
-
-function useSet<STORE, KEY, SLICE = STORE>(
-  storeSlice: Selector<STORE, SLICE>,
-  key: Key<SLICE, KEY>,
-): ReturnTuple<SLICE, typeof key>[1];
-
-function useSet<STORE, KEY, SLICE = STORE>(
+function useSet<STORE, KEY extends keyof SLICE, SLICE = STORE>(
   storeSlice: Selector<STORE, SLICE> | SliceRecord<SLICE>,
-  key: Key<SLICE, KEY>,
-): unknown {
+  key: KEY,
+): ReturnTuple<SLICE[KEY]>[1] {
   const slice = getSlice(storeSlice);
 
   return useCallback(
-    (value: SLICE[typeof key] | ((v: SLICE[typeof key]) => SLICE[typeof key])) => {
+    (
+      value: SLICE[KEY] | ((v: SLICE[KEY]) => SLICE[KEY]),
+    ) => {
       if (typeof value === 'function') {
-        const valueFunction = value as (v: SLICE[typeof key]) => SLICE[typeof key];
+        const valueFunction = value as (
+          v: SLICE[KEY]
+        ) => SLICE[KEY];
         slice[key] = valueFunction(slice[key]);
       } else {
         slice[key] = value;

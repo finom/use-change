@@ -2,31 +2,25 @@ import { useCallback, useEffect, useState } from 'react';
 import listenChange from './listenChange';
 import getSlice from './getSlice';
 import {
-  Key, ReturnTuple, Selector, SliceRecord,
+  ReturnTuple, StoreSlice,
 } from './types';
 
-function useChange<STORE, KEY, SLICE = STORE>(
-  storeSlice: SliceRecord<SLICE>,
-  key: Key<SLICE, KEY>,
-): ReturnTuple<SLICE, typeof key>;
-
-function useChange<STORE, KEY, SLICE = STORE>(
-  storeSlice: Selector<STORE, SLICE>,
-  key: Key<SLICE, KEY>,
-): ReturnTuple<SLICE, typeof key>;
-
-function useChange<STORE, KEY, SLICE = STORE>(
-  storeSlice: Selector<STORE, SLICE> | SliceRecord<SLICE>,
-  key: Key<SLICE, KEY>,
-): unknown {
+function useChange<STORE, KEY extends keyof SLICE, SLICE = STORE>(
+  storeSlice: StoreSlice<STORE, SLICE>,
+  key: KEY,
+): ReturnTuple<SLICE[KEY]> {
   const slice = getSlice(storeSlice);
 
   const [stateValue, setStateValue] = useState(slice[key]);
 
   const setValue = useCallback(
-    (value: SLICE[typeof key] | ((v: SLICE[typeof key]) => SLICE[typeof key])) => {
+    (
+      value: SLICE[typeof key] | ((v: SLICE[typeof key]) => SLICE[typeof key]),
+    ) => {
       if (typeof value === 'function') {
-        const valueFunction = value as (v: SLICE[typeof key]) => SLICE[typeof key];
+        const valueFunction = value as (
+          v: SLICE[typeof key]
+        ) => SLICE[typeof key];
         slice[key] = valueFunction(slice[key]);
       } else {
         slice[key] = value;
