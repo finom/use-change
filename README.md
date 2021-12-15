@@ -11,7 +11,7 @@ Components that call `useChange` listen to only those properties that they actua
 
 See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/comments/qqsbo3/usechange_the_most_minimalistic_react_state/) 😅.
 
-## 📋 Table of Contents
+## Table of Contents 📋
 
 <!--ts-->
 * [Quick start <g-emoji class="g-emoji" alias="coffee" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2615.png">☕</g-emoji>](#quick-start-)
