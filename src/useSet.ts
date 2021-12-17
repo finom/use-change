@@ -10,14 +10,12 @@ function useSet<STORE, KEY extends keyof SLICE, SLICE = STORE>(
 ): ReturnTuple<SLICE[KEY]>[1] {
   const slice = useStoreSlice(storeSlice);
 
+  type ValueFunction = (v: SLICE[KEY]) => SLICE[KEY];
+
   return useCallback(
-    (
-      value: SLICE[KEY] | ((v: SLICE[KEY]) => SLICE[KEY]),
-    ) => {
+    (value: SLICE[KEY] | ValueFunction) => {
       if (typeof value === 'function') {
-        const valueFunction = value as (
-          v: SLICE[KEY]
-        ) => SLICE[KEY];
+        const valueFunction = value as ValueFunction;
         slice[key] = valueFunction(slice[key]);
       } else {
         slice[key] = value;

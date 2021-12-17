@@ -13,14 +13,12 @@ function useChange<STORE, KEY extends keyof SLICE, SLICE = STORE>(
 
   const [stateValue, setStateValue] = useState(slice[key]);
 
+  type ValueFunction = (v: SLICE[KEY]) => SLICE[KEY];
+
   const setValue = useCallback(
-    (
-      value: SLICE[typeof key] | ((v: SLICE[typeof key]) => SLICE[typeof key]),
-    ) => {
+    (value: SLICE[KEY] | ValueFunction) => {
       if (typeof value === 'function') {
-        const valueFunction = value as (
-          v: SLICE[typeof key]
-        ) => SLICE[typeof key];
+        const valueFunction = value as ValueFunction;
         slice[key] = valueFunction(slice[key]);
       } else {
         slice[key] = value;

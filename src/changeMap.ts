@@ -6,9 +6,7 @@ import { Handler } from './types';
 // for example two different scripts that both use their own use-change instance
 // and they share one object to listen to
 const globalObject = typeof window !== 'undefined'
-  ? (window as {
-    __useChangeObjectMap?: WeakMap<any, Record<any, Handler<any>[]>>;
-  })
+  ? (window as { __useChangeObjectMap?: WeakMap<any, Record<any, Handler<any>[]>> })
   : {};
 
 const weakMap = globalObject.__useChangeObjectMap
