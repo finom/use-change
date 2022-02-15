@@ -380,10 +380,10 @@ Supports 100% the same overload as `useChange` does but returns a function that 
 
 ```ts
 // a change of the 'key' property never re-renders the component even if field value is changed
-const getFooBar = useGet((store: RootStore) => store.foo.bar, 'key'); 
+const getFooBarValue = useGet((store: RootStore) => store.foo.bar, 'key'); 
 
 useEffect(() => {
-  const fooBar = getFooBar(); // returns store.foo.bar['key']
+  const fooBar = getFooBarValue(); // returns store.foo.bar['key']
   console.log(fooBar);
 });
 ```
