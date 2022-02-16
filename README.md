@@ -383,8 +383,8 @@ Supports 100% the same overload as `useChange` does but returns a function that 
 const getFooBarValue = useGet((store: RootStore) => store.foo.bar, 'key'); 
 
 useEffect(() => {
-  const fooBar = getFooBarValue(); // returns store.foo.bar['key']
-  console.log(fooBar);
+  const fooBarValue = getFooBarValue(); // returns store.foo.bar['key']
+  console.log(fooBarValue);
 });
 ```
 
