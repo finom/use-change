@@ -222,7 +222,7 @@ class RootStore {
 
 ## Summary 🧑‍🎓
 
-Congrats! You basically passed the tutorial of how to use `use-change` hook! Thousand times simpler than Redux or MobX, right? Let's just mention a few last notes:
+Congrats! You basically passed the tutorial of how to use `use-change` hook! Let's just mention a few last notes:
 
 **The hook supports two overloads**
 1. Explicit store use. At this case you pass the store object to `useChange` hook: `useChange<T>(object: T, key: string)`
