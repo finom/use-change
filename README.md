@@ -36,8 +36,6 @@ See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/com
 
 <!--te-->
 
-![image](./assets/use-change.png)
-
 ## Quick start ☕
 
 1. Install the library by `npm i use-change` or `yarn add use-change`.
@@ -230,6 +228,7 @@ Congrats! You basically passed the tutorial of how to use `use-change` hook! Let
 
 **Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow any number of times. 
 
+![image](./assets/use-change.png)
 
 Let's take a look at a more abstract example. Just to make it simpler to understand, let's define a small interface instead of classes definition.
 
