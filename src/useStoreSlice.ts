@@ -1,6 +1,6 @@
 import { useContext, Context } from 'react';
 import UseChangeContext from './Context';
-import { SliceRecord, StoreSlice } from './types';
+import { Selector, SliceRecord, StoreSlice } from './types';
 
 export default function useStoreSlice<STORE, SLICE = STORE>(
   storeSlice: StoreSlice<STORE, SLICE>,
@@ -11,7 +11,7 @@ export default function useStoreSlice<STORE, SLICE = STORE>(
   if (typeof storeSlice === 'object') {
     slice = storeSlice;
   } else if (typeof storeSlice === 'function') {
-    slice = storeSlice(store);
+    slice = (storeSlice as Selector<STORE, SLICE>)(store);
   } else {
     throw new Error('Unknown store slice');
   }
