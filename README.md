@@ -36,8 +36,6 @@ See discussion and criticism [on Reddit](https://www.reddit.com/r/javascript/com
 
 <!--te-->
 
-![image](./assets/use-change.png)
-
 ## Quick start ☕
 
 1. Install the library by `npm i use-change` or `yarn add use-change`.
@@ -222,7 +220,7 @@ class RootStore {
 
 ## Summary 🧑‍🎓
 
-Congrats! You basically passed the tutorial of how to use `use-change` hook! Thousand times simpler than Redux or MobX, right? Let's just mention a few last notes:
+Congrats! You basically passed the tutorial of how to use `use-change` hook! Let's just mention a few last notes:
 
 **The hook supports two overloads**
 1. Explicit store use. At this case you pass the store object to `useChange` hook: `useChange<T>(object: T, key: string)`
@@ -230,6 +228,7 @@ Congrats! You basically passed the tutorial of how to use `use-change` hook! Tho
 
 **Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow any number of times. 
 
+![image](./assets/use-change.png)
 
 Let's take a look at a more abstract example. Just to make it simpler to understand, let's define a small interface instead of classes definition.
 
@@ -380,11 +379,11 @@ Supports 100% the same overload as `useChange` does but returns a function that 
 
 ```ts
 // a change of the 'key' property never re-renders the component even if field value is changed
-const getFooBar = useGet((store: RootStore) => store.foo.bar, 'key'); 
+const getFooBarValue = useGet((store: RootStore) => store.foo.bar, 'key'); 
 
 useEffect(() => {
-  const fooBar = getFooBar(); // returns store.foo.bar['key']
-  console.log(fooBar);
+  const fooBarValue = getFooBarValue(); // returns store.foo.bar['key']
+  console.log(fooBarValue);
 });
 ```
 
