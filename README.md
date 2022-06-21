@@ -181,6 +181,8 @@ const MyComponent = (): ReactElement => {
     </>
   )
 }
+
+export default MyComponent;
 ```
 
 As you can see the component doesn't modify store object implicitly, therefore it's not possible to change it directly (via assignment operator) from components. You can try to do that though to see how component reacts on changes of a listened property.
@@ -226,7 +228,9 @@ Congrats! You basically passed the tutorial of how to use `use-change` hook! Let
 1. Explicit store use. At this case you pass the store object to `useChange` hook: `useChange<T>(object: T, key: string)`
 2. Implicit store use where the store object is passed as `Provider` value and the listenable property is located in a nested object from the store `useChange<T>(storeSelector: (store: T) => object, key: string)`, where `storeSelector` is a path to a store object as a tiny arrow function.
 
-**Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow any number of times. 
+**Store is mutable, state is immutable.** Think of store as of tree with trunk and branches that never change and on the branches there are leaves that can fall and grow any number of times.
+
+Components and store fields are connected to each other at many-to-many relaton:
 
 ![image](./assets/use-change.png)
 
