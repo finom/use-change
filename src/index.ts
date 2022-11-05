@@ -5,7 +5,7 @@ import useSet from './useSet';
 import useSilent from './useSilent';
 import listenChange from './listenChange';
 import unlistenChange from './unlistenChange';
-import Context from './Context';
+import { Context, defineContext as UNSAFE_defineContext } from './Context';
 
 const { Provider } = Context;
 
@@ -20,4 +20,5 @@ export {
   unlistenChange,
   Context,
   Provider,
+  UNSAFE_defineContext,
 };

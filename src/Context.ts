@@ -1,6 +1,9 @@
-import { createContext } from 'react';
+import React, { createContext } from 'react';
 
-export default createContext({
-  __ERROR__: new Error('The component is not wrapped by provider'),
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any);
+// eslint-disable-next-line import/no-mutable-exports
+export let Context = createContext<unknown>({});
+
+export function defineContext<T>(ctx: T) {
+  Context = ctx as React.Context<unknown>;
+  return Context;
+}
