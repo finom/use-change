@@ -1,5 +1,5 @@
 import { useContext, Context } from 'react';
-import UseChangeContext from './Context';
+import { Context as UseChangeContext } from './Context';
 import { Selector, SliceRecord, StoreSlice } from './types';
 
 export default function useStoreSlice<STORE, SLICE = STORE>(
