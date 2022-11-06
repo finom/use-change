@@ -7,7 +7,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 const { execSync } = require('child_process');
 
-execSync('rm -rf node_modules && npm i --no-package-lock', { cwd: __dirname });
+execSync('rm -rf node_modules && npm i --legacy-peer-deps --no-package-lock', { cwd: __dirname });
 // remove root dependencies to avoid usage of them
 execSync('rm -rf ../node_modules', { cwd: __dirname });
 
@@ -25,4 +25,4 @@ for (const f of [useChange, useValue, useGet, useSet, useSilent, listenChange, u
 expect(Context.Provider).to.be(Provider);
 
 // return main dependencies back
-execSync('npm i --prefix ..', { cwd: __dirname });
+execSync('npm i --legacy-peer-deps --prefix ..', { cwd: __dirname });
