@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type KnownAny = any;
+
 export type SliceRecord<SLICE> = SLICE & Partial<Record<keyof SLICE, unknown>>;
 
 export type ReturnTuple<VALUE> = [
@@ -10,6 +13,6 @@ export type StoreSlice<STORE, SLICE> = Selector<STORE, SLICE> | SliceRecord<SLIC
 export type Handler<VALUE> = (
   value: VALUE,
   prev: VALUE
-) => any; // eslint-disable-line @typescript-eslint/no-explicit-any
+) => KnownAny;
 
 export type Selector<STORE, SLICE> = (store: STORE) => SliceRecord<SLICE>;

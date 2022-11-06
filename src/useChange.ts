@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import listenChange from './listenChange';
 import useStoreSlice from './useStoreSlice';
-import {
-  ReturnTuple, StoreSlice,
-} from './types';
+import type { ReturnTuple, StoreSlice } from './types';
 
 function useChange<STORE, KEY extends keyof SLICE, SLICE = STORE>(
   storeSlice: StoreSlice<STORE, SLICE>,

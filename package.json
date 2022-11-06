@@ -14,7 +14,7 @@
     "minor": "npm t && npm version minor && npm run build && npm publish && git push && git push --tags",
     "BREAKING-major": "npm t && npm version major && npm run build && npm publish && git push && git push --tags",
     "toc": "./gh-md-toc --insert README.md && rm README.md.*",
-    "upgrade": "npx npm-check-updates -u && npm i"
+    "upgrade": "npx npm-check-updates -u -x jasmine --timeout 800000 && npm i"
   },
   "repository": {
     "type": "git",
@@ -33,25 +33,25 @@
   },
   "homepage": "https://github.com/finom/use-change#readme",
   "devDependencies": {
-    "@testing-library/react-hooks": "^8.0.0",
-    "@types/jasmine": "^4.0.3",
-    "@types/react": "^18.0.12",
-    "@typescript-eslint/eslint-plugin": "^5.27.1",
-    "@typescript-eslint/parser": "^5.27.1",
-    "eslint": "^8.17.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@types/jasmine": "^4.3.0",
+    "@types/react": "^18.0.25",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint": "^8.27.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.30.0",
-    "eslint-plugin-react-hooks": "^4.5.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "jasmine": "^3.10.0",
     "jasmine-spec-reporter": "^7.0.0",
     "jasmine-ts": "^0.4.0",
     "react": "^18.1.0",
-    "react-test-renderer": "^18.1.0",
-    "ts-node": "^10.8.1",
-    "typescript": "^4.7.3"
+    "react-test-renderer": "^18.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
   },
   "peerDependencies": {
     "react": "*"

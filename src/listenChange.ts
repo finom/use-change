@@ -1,5 +1,5 @@
 import changeMap from './changeMap';
-import { Handler } from './types';
+import type { Handler } from './types';
 
 export default function listenChange<SLICE, KEY extends keyof SLICE>(
   givenObject: SLICE,

@@ -1,8 +1,6 @@
 import { useCallback } from 'react';
 import useStoreSlice from './useStoreSlice';
-import {
-  ReturnTuple, StoreSlice,
-} from './types';
+import type { ReturnTuple, StoreSlice } from './types';
 
 function useGet<STORE, KEY extends keyof SLICE, SLICE = STORE>(
   storeSlice: StoreSlice<STORE, SLICE>,

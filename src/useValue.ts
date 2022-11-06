@@ -1,6 +1,4 @@
-import {
-  ReturnTuple, StoreSlice,
-} from './types';
+import type { ReturnTuple, StoreSlice } from './types';
 import useChange from './useChange';
 
 function useValue<STORE, KEY extends keyof SLICE, SLICE = STORE>(
