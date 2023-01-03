@@ -9,7 +9,8 @@ function useChange<STORE, KEY extends keyof SLICE, SLICE = STORE>(
 ): ReturnTuple<SLICE[KEY]> {
   const slice = useStoreSlice(storeSlice);
 
-  const [stateValue, setStateValue] = useState(slice[key]);
+  // slice[key] can be a function
+  const [stateValue, setStateValue] = useState(() => slice[key]);
 
   type ValueFunction = (v: SLICE[KEY]) => SLICE[KEY];
 
