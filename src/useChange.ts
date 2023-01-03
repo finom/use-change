@@ -27,7 +27,8 @@ function useChange<STORE, KEY extends keyof SLICE, SLICE = STORE>(
 
   useEffect(() => {
     const handler = () => {
-      setStateValue(slice[key]);
+      // slice[key] can be a function
+      setStateValue(() => slice[key]);
     };
 
     if (slice[key] !== stateValue) {
