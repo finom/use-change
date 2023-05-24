@@ -19,6 +19,8 @@ export default () => {
 }
 ```
 
+--------
+
 Before we start let's define a simple application state. It has `count` and `increment` at the root and `users` as sub-storage for data that specified for users (for now it's just an array of `ids`). 
 
 ```ts
