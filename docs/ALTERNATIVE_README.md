@@ -2,7 +2,7 @@
 
 > This is an alternative README for [use-change](https://github.com/finom/use-change) that utilises the explicit overload. use-change includes a bunch of usefil hooks that allow to access application store safely. When I say "safely" I mean that you're never going to use application state object at your components directly. Instead I recommended to use Provider to make all components to have acces to one object and modify data with the `useState`-like hook. At this doc we're not going to use Provider at all, therefore we don't need the most of the hooks anymore. 
 
-Before we start let's define a simple application state. It has `count` at the root and `users` as sub-storage for data that specified for users (for now it's just `ids`). 
+Before we start let's define a simple application state. It has `count` and `increment` at the root and `users` as sub-storage for data that specified for users (for now it's just an array of `ids`). 
 
 ```ts
 // store.ts
@@ -21,7 +21,7 @@ const store = new RootStore();
 export default store;
 ```
 
-use-change introduces a hook called `useValue` that allows to listen to data using property accessor. To access the app state data in your component you'd call wuth 2 arguments: the object, and its key that's going to be listened.
+**use-change** introduces a hook called `useValue` that allows to listen to data using property accessor. To access the app state data in your component you'd call `useValue` with 2 arguments: the object, and its key that's going to be listened.
 
 ```ts
 import { useValue } from 'use-change';
@@ -35,7 +35,7 @@ export default () => {
 }
 ```
 
-The syntax is fine, but there is one cool idea: why not to define the hook as `use` method and never import hooks form use-change to your components?
+The syntax is fine, but there is one cool idea: why not to define the hook as `use` method and never import hooks form **use-change** to your components?
 
 Let's define `use` method for all our sub-stores:
 
@@ -60,7 +60,7 @@ export default store;
     
 > Tip: If you don't want to repeat `use` method at every class, you can create another class that is going to extend other classes. For this example let's keep it simple.
 
-From now, when we want to have reactive access to the property we use this method but we also don't import hooks to our component anymore.
+From now, when we want to have reactive access to the property at React component we use this method and we also don't import hooks to our component anymore.
     
 ```ts
 import store from './store'
@@ -81,7 +81,7 @@ store.count++;
 store.users.ids = [...store.users.ids, 4]
 ```
     
-What if we want to call soething (ie action)? Just call the method.
+What if we want to call some custom code (i.e. action)? Just call the method. **use-change** doesn't introduce anything for side-effects, we use plain old JavaScript
     
 ```ts
 store.increment();
@@ -107,10 +107,13 @@ export default () => {
 
 That's what I call **hook-less**. Of course we still use hooks to implement that but:
     
-- We don't import store-specific hooks to our components.
+- We don't import library-specific hooks to our components.
 - We've got a "natural" way to get values in your components: `foo.bar.baz.field` is replaced by `foo.bar.baz.use('field')`
     
- > Tip: if you still want to `useState`-like syntax with value and setter function you can replace `useValue` by `useChange` and use hte folloiwing syntax:
-    ```js
-    const [count, setCount] = store.use('count');
-    ```
+ > Tip: if you still want to `useState`-like syntax with value and setter function you can replace `useValue` by `useChange` at your `use` method and use the folloiwing syntax:
+ 
+ ```ts
+const [count, setCount] = store.use('count');
+```
+
+If you have any questions, open an issue or a discussion.
