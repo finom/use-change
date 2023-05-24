@@ -7,7 +7,7 @@ Before we start let's define a simple application state. It has `count` and `inc
 ```ts
 // store.ts
 class Users {
-  ids: [1, 2, 3];
+  public ids: [1, 2, 3];
 }
 
 class RootStore {
@@ -42,7 +42,7 @@ Let's define `use` method for all our sub-stores:
 ```ts
 // store.ts
 class Users {
-  ids: [1, 2, 3];
+  public ids: [1, 2, 3];
   public use = <KEY extends keyof this>(key: KEY) => useValue<typeof this, KEY>(this, key);
 }
 
