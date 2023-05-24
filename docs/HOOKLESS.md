@@ -74,7 +74,7 @@ export default () => {
 ```
     
     
-What if we want to set the value? Just use assignment and all components are going to trigger re-render.
+What if we want to set the value? Just use regular assignment and all components are going to trigger re-render.
     
 ```ts
 store.count++;
