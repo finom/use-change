@@ -1,4 +1,4 @@
-# Hook-less application state powered by accessors
+# Hook-less React application state powered by accessors
 
 > This is an alternative README for [use-change](https://github.com/finom/use-change) that utilises the explicit overload. use-change includes a bunch of usefil hooks that allow to access application store safely. When I say "safely" I mean that you're never going to use application state object at your components directly. Instead I recommended to use Provider to make all components to have acces to one object and modify data with the `useState`-like hook. At this doc we're not going to use Provider at all, therefore we don't need the most of the hooks anymore. 
 
