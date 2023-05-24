@@ -67,7 +67,7 @@ import store from './store'
 
 export default () => {
   const count = store.use('count'); // same as store['count'] but reactive
-  const userIds = store.users.use('id'); // same as store.users['ids'] but reactive
+  const userIds = store.users.use('ids'); // same as store.users['ids'] but reactive
 
   // ...
 }
@@ -94,7 +94,7 @@ import store from './store'
 
 export default () => {
   const count = store.use('count'); // same as store['count'] but reactive
-  const userIds = store.users.use('id'); // same as store.users['ids'] but reactive
+  const userIds = store.users.use('ids'); // same as store.users['ids'] but reactive
 
   return (
     <div onClick={() => {
