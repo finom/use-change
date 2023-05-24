@@ -81,7 +81,7 @@ store.count++;
 store.users.ids = [...store.users.ids, 4]
 ```
     
-What if we want to call some custom code (i.e. action)? Just call the method. **use-change** doesn't introduce anything for side-effects, we use plain old JavaScript
+What if we want to call some custom code (i.e. action)? Just call the method. **use-change** doesn't introduce anything for side-effects, and we're going to use plain old JavaScript.
     
 ```ts
 store.increment();
