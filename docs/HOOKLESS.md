@@ -109,6 +109,7 @@ That's what I call **hook-less**. Of course we still use hooks to implement that
     
 - We don't import library-specific hooks to our components.
 - We've got a "natural" way to get values in your components: `foo.bar.baz.field` is replaced by `foo.bar.baz.use('field')`
+- All other operations are regular assignments or method calls.
     
  > Tip: if you still want to `useState`-like syntax with value and setter function you can replace `useValue` by `useChange` at your `use` method and use the folloiwing syntax:
  
