@@ -58,7 +58,25 @@ const store = new RootStore();
 export default store;
 ```
     
-> Tip: If you don't want to repeat `use` method at every class, you can create another class that is going to extend other classes. For this example let's keep it simple.
+> Tip: If you don't want to repeat `use` method at every class, you can create another class that is going to extend other classes.
+
+```ts
+// Use.ts
+import { useValue } from "use-change";
+
+export default class Use {
+    public use = <KEY extends keyof this>(key: KEY) => useValue<typeof this, KEY>(this, key);
+}
+
+```
+```ts
+// store.ts
+import Use from './Use';
+
+class Users extends Use {
+  public ids = [1, 2, 3];
+}
+```
 
 From now, when we want to have reactive access to the property at React component we use this method and we also don't import hooks to our component anymore.
     
