@@ -30,9 +30,9 @@ class Users {
 }
 
 class RootStore {
-  public users = new Users();
+  public readonly users = new Users();
   public count = 0;
-  public increment = () => this.count++;
+  public readonly increment = () => this.count++;
 }
 
 const store = new RootStore();
@@ -62,14 +62,14 @@ Let's define `use` method for all our sub-stores:
 // store.ts
 class Users {
   public ids = [1, 2, 3];
-  public use = <KEY extends keyof this>(key: KEY) => useValue<typeof this, KEY>(this, key);
+  public readonly use = <KEY extends keyof this>(key: KEY) => useValue<typeof this, KEY>(this, key);
 }
 
 class RootStore {
-  public users = new Users();
+  public readonly users = new Users();
   public count = 0;
-  public increment = () => this.count++;
-  public use = <KEY extends keyof this>(key: KEY) => useValue<typeof this, KEY>(this, key);
+  public readonly increment = () => this.count++;
+  public readonly use = <KEY extends keyof this>(key: KEY) => useValue<typeof this, KEY>(this, key);
 }
 
 const store = new RootStore();
@@ -84,7 +84,7 @@ export default store;
 import { useValue } from "use-change";
 
 export default class Use {
-    public use = <KEY extends keyof this>(key: KEY) => useValue<typeof this, KEY>(this, key);
+    public readonly use = <KEY extends keyof this>(key: KEY) => useValue<typeof this, KEY>(this, key);
 }
 
 ```
