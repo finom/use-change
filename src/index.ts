@@ -11,7 +11,7 @@ import type {
   SliceRecord, ReturnTuple, StoreSlice, Handler, Selector,
 } from './types';
 
-const { Provider } = Context;
+const Provider = Context?.Provider;
 
 export default useChange;
 
