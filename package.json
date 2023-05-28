@@ -26,7 +26,7 @@
     "redux",
     "mobx"
   ],
-  "author": "Andrey Gubanov",
+  "author": "Andrii Gubanov",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/finom/use-change/issues"

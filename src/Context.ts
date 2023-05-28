@@ -2,7 +2,7 @@ import { Context as ReactContext, createContext } from 'react';
 import type { KnownAny } from './types';
 
 // eslint-disable-next-line import/no-mutable-exports
-export let Context: ReactContext<KnownAny> = createContext<KnownAny>({
+export let Context: ReactContext<KnownAny> = createContext<KnownAny>?.({
   __ERROR__: new Error('The component is not wrapped by provider'),
 });
 
