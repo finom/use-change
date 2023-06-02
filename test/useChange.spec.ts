@@ -50,7 +50,11 @@ describe('useChange', () => {
     let renderedTimes = 0;
     const { result } = renderHook(() => {
       renderedTimes += 1;
-      return useChange(({ x }: typeof store) => x, 'y');
+      const y = useChange(({ x }: typeof store) => x, 'y');
+      // const [Y] = y;
+      // const [nullishY] = useChange(({ x }: typeof store) => x, 'y' as null | 'y');
+
+      return y;
     }, { wrapper });
 
     expect(result.current[VALUE]).toBe(1);
@@ -165,5 +169,50 @@ describe('useChange', () => {
 
     expect(result.current[VALUE]).toBe(2);
     expect(renderedTimes).toBe(2);
+  });
+
+  it('Supports null as a key', () => {
+    const store = { x: 1, y: 'y' };
+    const wrapper = getWrapper(store);
+
+    let renderedTimes = 0;
+
+    const { result } = renderHook(() => {
+      renderedTimes += 1;
+      return useChange(store, null);
+    }, { wrapper });
+
+    expect(result.current[VALUE]).toBe(undefined);
+    expect(renderedTimes).toBe(1);
+    expect('null' in store).toBe(false);
+
+    // @ts-expect-error - null is not a valid key
+    act(() => { result.current[SET](2); });
+
+    expect(result.current[VALUE]).toBe(undefined);
+    expect(renderedTimes).toBe(1);
+  });
+
+  it('Supports undefined as a key', () => {
+    const store = { x: 1, y: 'y' };
+    const wrapper = getWrapper(store);
+
+    let renderedTimes = 0;
+
+    const { result } = renderHook(() => {
+      renderedTimes += 1;
+      return useChange(store, undefined);
+    }, { wrapper });
+
+    expect(result.current[VALUE]).toBe(undefined);
+    expect(renderedTimes).toBe(1);
+
+    expect('undefined' in store).toBe(false);
+
+    // @ts-expect-error - null is not a valid key
+    act(() => { result.current[SET](2); });
+
+    expect(result.current[VALUE]).toBe(undefined);
+    expect(renderedTimes).toBe(1);
   });
 });

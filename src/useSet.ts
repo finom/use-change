@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import useStoreSlice from './useStoreSlice';
-import type { ReturnTuple, Selector, SliceRecord } from './types';
+import type { Selector, SliceRecord } from './types';
 
 function useSet<STORE, KEY extends keyof SLICE, SLICE = STORE>(
   storeSlice: Selector<STORE, SLICE> | SliceRecord<SLICE>,
   key: KEY,
-): ReturnTuple<SLICE[KEY]>[1] {
+) {
   const slice = useStoreSlice(storeSlice);
 
   type ValueFunction = (v: SLICE[KEY]) => SLICE[KEY];
