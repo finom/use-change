@@ -45,7 +45,7 @@ describe('useChange', () => {
   });
 
   it('Implicit overload', () => {
-    const store: { x: { y: number | (() => void) }, foo?: unknown } = { x: { y: 1 } };
+    const store: { x: { y: number | (() => void), bar: string }, foo?: unknown } = { x: { y: 1, bar: '' } };
     const wrapper = getWrapper(store);
     let renderedTimes = 0;
     const { result } = renderHook(() => {

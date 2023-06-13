@@ -7,6 +7,7 @@ import listenChange from './listenChange';
 import unlistenChange from './unlistenChange';
 import { Context, defineContext as UNSAFE_defineContext } from './Context';
 import useStoreSlice from './useStoreSlice';
+import UNSAFE_waitForValue from './waitForValue';
 import type {
   SliceRecord, ReturnTuple, StoreSlice, Handler, Selector,
 } from './types';
@@ -24,8 +25,9 @@ export {
   unlistenChange,
   Context,
   Provider,
-  UNSAFE_defineContext,
   useStoreSlice,
+  UNSAFE_defineContext,
+  UNSAFE_waitForValue,
 };
 
 export type {
