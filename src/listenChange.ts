@@ -12,6 +12,7 @@ export default function listenChange<SLICE, KEY extends keyof SLICE>(
     let value = givenObject[key];
 
     Object.defineProperty(givenObject, key, {
+      enumerable: true,
       configurable: false,
       get: () => value,
       set: (newValue: SLICE[KEY]) => {
