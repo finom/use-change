@@ -1,6 +1,6 @@
 {
   "name": "use-change",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Application-wide alternative for React.useState",
   "main": "dist/index.js",
   "scripts": {
